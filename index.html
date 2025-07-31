@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditi Sagesh - AI/ML Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --neon-blue: #00ffff;
+            --neon-pink: #ff0080;
+            --neon-purple: #8000ff;
+            --neon-green: #00ff41;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #111111;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--neon-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor-trail {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+        
+        /* Animated Background */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: -2;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        /* Glitch Effects */
+        .glitch {
+            position: relative;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            animation: glitch-1 2s infinite;
+            color: var(--neon-pink);
+            z-index: -1;
+        }
+        
+        .glitch::after {
+            animation: glitch-2 2s infinite;
+            color: var(--neon-blue);
+            z-index: -2;
+        }
+        
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% {
+                transform: translate(0);
+            }
+            15%, 49% {
+                transform: translate(-2px, -1px);
+            }
+        }
+        
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% {
+                transform: translate(0);
+            }
+            21%, 62% {
+                transform: translate(2px, 1px);
+            }
+        }
+        
+        /* Neon Glow Effects */
+        .neon-glow {
+            text-shadow: 
+                0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .neon-border {
+            border: 2px solid var(--neon-blue);
+            box-shadow: 
+                0 0 10px var(--neon-blue),
+                inset 0 0 10px rgba(0, 255, 255, 0.1);
+        }
+        
+        /* Holographic Cards */
+        .holo-card {
+            background: linear-gradient(
+                45deg,
+                rgba(0, 255, 255, 0.1) 0%,
+                rgba(255, 0, 128, 0.1) 25%,
+                rgba(128, 0, 255, 0.1) 50%,
+                rgba(0, 255, 65, 0.1) 75%,
+                rgba(0, 255, 255, 0.1) 100%
+            );
+            background-size: 400% 400%;
+            animation: holoShift 4s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @keyframes holoShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Floating Animation */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Typing Effect */
+        .typewriter {
+            border-right: 3px solid var(--neon-green);
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: var(--neon-green); }
+            51%, 100% { border-color: transparent; }
+        }
+        
+        /* Scan Lines */
+        .scanlines::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 255, 255, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            animation: scanlines 0.1s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+        
+        /* Particle System */
+        .particle {
+            position: absolute;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 8s linear infinite;
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Interactive Elements */
+        .cyber-button {
+            position: relative;
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 12px 30px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cyber-button:hover::before {
+            left: 100%;
+        }
+        
+        .cyber-button:hover {
+            color: var(--dark-bg);
+            background: var(--neon-blue);
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+        
+        /* Progress Bars */
+        .skill-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 2px;
+            position: relative;
+            transition: width 2s ease;
+        }
+        
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Terminal Window */
+        .terminal {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--neon-green);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+        
+        .terminal-header {
+            background: rgba(0, 255, 65, 0.1);
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--neon-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 2rem;
+            }
+            
+            .cyber-button {
+                padding: 10px 20px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Scroll Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
+            transform-origin: left;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    
+    <!-- Animated Background -->
+    <div class="cyber-grid"></div>
+    
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Particle System -->
+    <div id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-black bg-opacity-50 backdrop-blur-md border-b border-cyan-500 border-opacity-30">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold text-cyan-400" style="font-family: 'Orbitron', monospace;">
+                    &lt;ADITI.SAGESH&gt;
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm uppercase tracking-wider">
+                    <a href="#home" class="text-cyan-400 hover:text-white transition-colors">Initialize</a>
+                    <a href="#about" class="text-cyan-400 hover:text-white transition-colors">Profile</a>
+                    <a href="#projects" class="text-cyan-400 hover:text-white transition-colors">Projects</a>
+                    <a href="#skills" class="text-cyan-400 hover:text-white transition-colors">Skills</a>
+                    <a href="#contact" class="text-cyan-400 hover:text-white transition-colors">Connect</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative scanlines">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="mb-12">
+                <h1 class="text-6xl md:text-8xl font-black mb-6 text-cyan-400" data-text="ADITI SAGESH" style="font-family: 'Orbitron', monospace; text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);">
+                    ADITI SAGESH
+                </h1>
+                <div class="text-2xl md:text-3xl mb-8 text-green-400">
+                    <span class="text-cyan-400">&gt;</span>
+                    <span id="typingText" class="typewriter"></span>
+                </div>
+                <p class="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
+                    <span class="text-pink-400">AI/ML Engineer</span> specializing in 
+                    <span class="text-purple-400">business transformation</span> through 
+                    <span class="text-cyan-400">cutting-edge technology</span>. 
+                    Building the future, one algorithm at a time.
+                </p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-16">
+                <button class="cyber-button" onclick="scrollToSection('projects')">
+                    View Projects
+                </button>
+                <button class="cyber-button" onclick="scrollToSection('contact')" style="border-color: var(--neon-pink); color: var(--neon-pink);">
+                    Initialize Contact
+                </button>
+            </div>
+            
+            <!-- Social Matrix -->
+            <div class="flex justify-center space-x-8 text-2xl">
+                <a href="mailto:aditisagesh1703@gmail.com" class="text-cyan-400 hover:text-white transition-all hover:scale-125">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/aditi-sagesh-1a9ab127a" target="_blank" class="text-cyan-400 hover:text-white transition-all hover:scale-125">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="tel:+919345903070" class="text-cyan-400 hover:text-white transition-all hover:scale-125">
+                    <i class="fas fa-phone"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 w-4 h-4 bg-cyan-400 rounded-full float opacity-60"></div>
+        <div class="absolute top-40 right-20 w-6 h-6 bg-pink-400 rounded-full float opacity-40" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-32 left-1/4 w-3 h-3 bg-purple-400 rounded-full float opacity-50" style="animation-delay: 4s;"></div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 neon-glow" style="font-family: 'Orbitron', monospace;">
+                &lt;PROFILE.INIT&gt;
+            </h2>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot bg-red-500"></div>
+                            <div class="terminal-dot bg-yellow-500"></div>
+                            <div class="terminal-dot bg-green-500"></div>
+                            <span class="text-green-400 text-sm ml-4">profile.py</span>
+                        </div>
+                        <div class="p-6 text-sm">
+                            <div class="text-purple-400">class <span class="text-white">AditiSagesh</span>:</div>
+                            <div class="ml-4 mt-2 space-y-1">
+                                <div class="text-gray-400"># AI/ML Engineer & Business Strategist</div>
+                                <div class="mt-2">
+                                    <span class="text-cyan-400">def</span> <span class="text-yellow-400">__init__</span>(self):
+                                </div>
+                                <div class="ml-4 space-y-1">
+                                    <div>self.education = <span class="text-green-400">"B.E CSE (AI & ML)"</span></div>
+                                    <div>self.college = <span class="text-green-400">"Sri Sairam Engineering College"</span></div>
+                                    <div>self.cgpa = <span class="text-orange-400">8.43</span></div>
+                                    <div>self.specialization = <span class="text-green-400">"AI Strategy & Analytics"</span></div>
+                                    <div>self.mission = <span class="text-green-400">"AI-Driven Transformation"</span></div>
+                                    <div>self.status = <span class="text-pink-400">"Seeking Opportunities"</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Achievement Stats -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="holo-card p-6 text-center neon-border rounded-lg">
+                            <div class="text-3xl font-bold text-cyan-400 mb-2">90%+</div>
+                            <div class="text-sm text-gray-400 uppercase tracking-wider">Accuracy Rate</div>
+                        </div>
+                        <div class="holo-card p-6 text-center neon-border rounded-lg">
+                            <div class="text-3xl font-bold text-pink-400 mb-2">60%</div>
+                            <div class="text-sm text-gray-400 uppercase tracking-wider">Time Optimized</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-8">
+                    <div class="holo-card p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-6 text-cyan-400" style="font-family: 'Orbitron', monospace;">
+                            MISSION STATEMENT
+                        </h3>
+                        <p class="text-gray-300 leading-relaxed mb-6">
+                            I specialize in transforming complex AI/ML concepts into actionable business solutions. 
+                            With expertise in data-driven decision making and strategic analytics, I bridge the gap 
+                            between cutting-edge technology and measurable business impact.
+                        </p>
+                        <p class="text-gray-300 leading-relaxed">
+                            My focus spans from predictive modeling to AI strategy implementation, always prioritizing 
+                            solutions that deliver tangible value and drive organizational transformation.
+                        </p>
+                        
+                        <!-- Experience Highlights -->
+                        <div class="mt-8 space-y-4">
+                            <h4 class="text-lg font-bold text-cyan-400 mb-4">Recent Experience</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <div>
+                                        <div class="text-white font-semibold">Research Intern - CSIR-CEERI</div>
+                                        <div class="text-gray-400 text-sm">AI pipelines for non-destructive testing • R² 0.9997 accuracy</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                                    <div>
+                                        <div class="text-white font-semibold">Security Analyst - Tata Cybersecurity</div>
+                                        <div class="text-gray-400 text-sm">IAM principles • Cybersecurity consulting simulation</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Patent Achievement -->
+                        <div class="mt-6 bg-gradient-to-r from-yellow-900 to-orange-900 bg-opacity-30 border border-yellow-500 border-opacity-50 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <i class="fas fa-certificate text-yellow-400 text-lg"></i>
+                                <span class="text-yellow-400 font-bold text-sm uppercase tracking-wider">Patent Filed</span>
+                            </div>
+                            <div class="text-white text-sm font-semibold">AI-Optimized Highway CO₂ Capture System</div>
+                            <div class="text-gray-300 text-xs">Using MOFs and IoT for Urban Pollution Control</div>
+                        </div>
+                        
+                        <!-- Core Competencies -->
+                        <div class="mt-8 grid grid-cols-2 gap-4">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-brain text-cyan-400"></i>
+                                <span class="text-sm">AI Strategy</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-chart-line text-pink-400"></i>
+                                <span class="text-sm">Business Analytics</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-robot text-purple-400"></i>
+                                <span class="text-sm">ML Solutions</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-lightbulb text-green-400"></i>
+                                <span class="text-sm">Innovation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 neon-glow" style="font-family: 'Orbitron', monospace;">
+                &lt;PROJECTS.EXECUTE&gt;
+            </h2>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="holo-card rounded-xl overflow-hidden neon-border group hover:scale-105 transition-all duration-300">
+                    <div class="p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-gradient-to-r from-cyan-500 to-blue-500 p-4 rounded-lg mr-4">
+                                <i class="fas fa-car text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Autonomous Vehicle Detection</h3>
+                                <div class="text-cyan-400 text-sm uppercase tracking-wider">Computer Vision • Real-time AI</div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-300 leading-relaxed mb-6">
+                            Advanced object detection system achieving 84% precision in real-time environments. 
+                            Specialized in traffic analysis and hazard avoidance for autonomous vehicle applications.
+                        </p>
+                        
+                        <!-- Metrics -->
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-green-400">84%</div>
+                                <div class="text-xs text-gray-400 uppercase">Precision</div>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-cyan-400">Real-time</div>
+                                <div class="text-xs text-gray-400 uppercase">Processing</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tech Stack -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 px-3 py-1 rounded-full text-xs border border-blue-500">Python</span>
+                            <span class="bg-green-900 bg-opacity-50 text-green-300 px-3 py-1 rounded-full text-xs border border-green-500">OpenCV</span>
+                            <span class="bg-purple-900 bg-opacity-50 text-purple-300 px-3 py-1 rounded-full text-xs border border-purple-500">TensorFlow</span>
+                            <span class="bg-yellow-900 bg-opacity-50 text-yellow-300 px-3 py-1 rounded-full text-xs border border-yellow-500">Scikit-Learn</span>
+                        </div>
+                        
+                        <button class="w-full cyber-button">
+                            Access Project Data
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="holo-card rounded-xl overflow-hidden neon-border group hover:scale-105 transition-all duration-300">
+                    <div class="p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-4 rounded-lg mr-4">
+                                <i class="fas fa-microphone text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Auralytics - Deepfake Detection</h3>
+                                <div class="text-purple-400 text-sm uppercase tracking-wider">Audio AI • CNN-LSTM • Security</div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-300 leading-relaxed mb-6">
+                            Revolutionary AI system for real-time deepfake audio detection using advanced CNN-LSTM 
+                            architecture with comprehensive audio feature analysis and forensic applications.
+                        </p>
+                        
+                        <!-- Metrics -->
+                        <div class="grid grid-cols-3 gap-2 mb-6">
+                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
+                                <div class="text-lg font-bold text-green-400">90%+</div>
+                                <div class="text-xs text-gray-400 uppercase">Accuracy</div>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
+                                <div class="text-lg font-bold text-purple-400">40%</div>
+                                <div class="text-xs text-gray-400 uppercase">Better</div>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
+                                <div class="text-lg font-bold text-pink-400">60%</div>
+                                <div class="text-xs text-gray-400 uppercase">Faster</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tech Stack -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-purple-900 bg-opacity-50 text-purple-300 px-3 py-1 rounded-full text-xs border border-purple-500">CNN-LSTM</span>
+                            <span class="bg-green-900 bg-opacity-50 text-green-300 px-3 py-1 rounded-full text-xs border border-green-500">Librosa</span>
+                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 px-3 py-1 rounded-full text-xs border border-blue-500">MFCC</span>
+                            <span class="bg-pink-900 bg-opacity-50 text-pink-300 px-3 py-1 rounded-full text-xs border border-pink-500">Real-time</span>
+                        </div>
+                        
+                        <button class="w-full cyber-button" style="border-color: var(--neon-purple); color: var(--neon-purple);">
+                            Access Project Data
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="holo-card rounded-xl overflow-hidden neon-border group hover:scale-105 transition-all duration-300">
+                    <div class="p-8">
+                        <div class="flex items-center mb-6">
+                            <div class="bg-gradient-to-r from-green-500 to-teal-500 p-4 rounded-lg mr-4">
+                                <i class="fas fa-microscope text-white text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">AI-Powered Material Analysis</h3>
+                                <div class="text-green-400 text-sm uppercase tracking-wider">Research • THz Imaging • CSIR-CEERI</div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-gray-300 leading-relaxed mb-6">
+                            Advanced AI pipelines for non-destructive testing using Terahertz and X-ray imaging. 
+                            Achieved exceptional accuracy in wood density prediction and defect detection.
+                        </p>
+                        
+                        <!-- Metrics -->
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-green-400">R² 0.9997</div>
+                                <div class="text-xs text-gray-400 uppercase">X-ray Model</div>
+                            </div>
+                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
+                                <div class="text-2xl font-bold text-teal-400">R² 0.9985</div>
+                                <div class="text-xs text-gray-400 uppercase">THz Model</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tech Stack -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-green-900 bg-opacity-50 text-green-300 px-3 py-1 rounded-full text-xs border border-green-500">XGBoost</span>
+                            <span class="bg-teal-900 bg-opacity-50 text-teal-300 px-3 py-1 rounded-full text-xs border border-teal-500">CatBoost</span>
+                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 px-3 py-1 rounded-full text-xs border border-blue-500">MATLAB</span>
+                            <span class="bg-purple-900 bg-opacity-50 text-purple-300 px-3 py-1 rounded-full text-xs border border-purple-500">Signal Processing</span>
+                        </div>
+                        
+                        <button class="w-full cyber-button" style="border-color: var(--neon-green); color: var(--neon-green);">
+                            Access Research Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 neon-glow" style="font-family: 'Orbitron', monospace;">
+                &lt;SKILLS.MATRIX&gt;
+            </h2>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Programming -->
+                <div class="holo-card p-8 rounded-xl neon-border">
+                    <h3 class="text-xl font-bold mb-6 text-cyan-400 flex items-center">
+                        <i class="fas fa-code mr-3"></i>PROGRAMMING
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white">Python</span>
+                                <span class="text-cyan-400">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white">SQL</span>
+                                <span class="text-cyan-400">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white">Java</span>
+                                <span class="text-cyan-400">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI/ML -->
+                <div class="holo-card p-8 rounded-xl neon-border">
+                    <h3 class="text-xl font-bold mb-6 text-purple-400 flex items-center">
+                        <i class="fas fa-brain mr-3"></i>AI/ML STACK
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white">TensorFlow</span>
+                                <span class="text-purple-400">92%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 92%; background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white">Scikit-learn</span>
+                                <span class="text-purple-400">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%; background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white">OpenCV</span>
+                                <span class="text-purple-400">88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%; background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Business -->
+                <div class="holo-card p-8 rounded-xl neon-border">
+                    <h3 class="text-xl font-bold mb-6 text-pink-400 flex items-center">
+                        <i class="fas fa-chart-line mr-3"></i>BUSINESS
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white">Analytics</span>
+                                <span class="text-pink-400">93%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 93%; background: linear-gradient(90deg, var(--neon-pink), var(--neon-green));"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white">Strategy</span>
+                                <span class="text-pink-400">87%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 87%; background: linear-gradient(90deg, var(--neon-pink), var(--neon-green));"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-white">Leadership</span>
+                                <span class="text-pink-400">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%; background: linear-gradient(90deg, var(--neon-pink), var(--neon-green));"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 neon-glow" style="font-family: 'Orbitron', monospace;">
+                &lt;CONTACT.ESTABLISH&gt;
+            </h2>
+            
+            <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dot bg-red-500"></div>
+                            <div class="terminal-dot bg-yellow-500"></div>
+                            <div class="terminal-dot bg-green-500"></div>
+                            <span class="text-green-400 text-sm ml-4">contact.json</span>
+                        </div>
+                        <div class="p-6 text-sm">
+                            <div class="text-gray-400">{</div>
+                            <div class="ml-4 space-y-1">
+                                <div><span class="text-cyan-400">"name"</span>: <span class="text-green-400">"Aditi Sagesh"</span>,</div>
+                                <div><span class="text-cyan-400">"email"</span>: <span class="text-green-400">"aditisagesh1703@gmail.com"</span>,</div>
+                                <div><span class="text-cyan-400">"phone"</span>: <span class="text-green-400">"+91-9345903070"</span>,</div>
+                                <div><span class="text-cyan-400">"linkedin"</span>: <span class="text-green-400">"aditi-sagesh-1a9ab127a"</span>,</div>
+                                <div><span class="text-cyan-400">"location"</span>: <span class="text-green-400">"Chennai, India"</span>,</div>
+                                <div><span class="text-cyan-400">"status"</span>: <span class="text-pink-400">"Open to Opportunities"</span>,</div>
+                                <div><span class="text-cyan-400">"specialization"</span>: [</div>
+                                <div class="ml-4">
+                                    <div><span class="text-green-400">"AI Strategy"</span>,</div>
+                                    <div><span class="text-green-400">"ML Solutions"</span>,</div>
+                                    <div><span class="text-green-400">"Business Analytics"</span>,</div>
+                                    <div><span class="text-green-400">"Data Consulting"</span></div>
+                                </div>
+                                <div>]</div>
+                            </div>
+                            <div class="text-gray-400">}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Links -->
+                    <div class="space-y-4">
+                        <a href="mailto:aditisagesh1703@gmail.com" class="flex items-center p-4 holo-card rounded-lg neon-border hover:scale-105 transition-all">
+                            <i class="fas fa-envelope text-cyan-400 text-xl mr-4"></i>
+                            <div>
+                                <div class="font-semibold text-white">Email Protocol</div>
+                                <div class="text-gray-400 text-sm">aditisagesh1703@gmail.com</div>
+                            </div>
+                        </a>
+                        
+                        <a href="https://www.linkedin.com/in/aditi-sagesh-1a9ab127a" target="_blank" class="flex items-center p-4 holo-card rounded-lg neon-border hover:scale-105 transition-all">
+                            <i class="fab fa-linkedin text-blue-400 text-xl mr-4"></i>
+                            <div>
+                                <div class="font-semibold text-white">Network Interface</div>
+                                <div class="text-gray-400 text-sm">Professional Connection</div>
+                            </div>
+                        </a>
+                        
+                        <a href="tel:+919345903070" class="flex items-center p-4 holo-card rounded-lg neon-border hover:scale-105 transition-all">
+                            <i class="fas fa-phone text-green-400 text-xl mr-4"></i>
+                            <div>
+                                <div class="font-semibold text-white">Voice Channel</div>
+                                <div class="text-gray-400 text-sm">+91-9345903070</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="holo-card p-8 rounded-xl neon-border">
+                    <h3 class="text-2xl font-bold mb-6 text-center text-cyan-400" style="font-family: 'Orbitron', monospace;">
+                        SEEKING OPPORTUNITIES
+                    </h3>
+                    <p class="text-gray-300 text-center mb-8 leading-relaxed">
+                        Fresh AI/ML graduate ready to contribute to innovative projects. Looking for opportunities 
+                        to apply my skills in machine learning, computer vision, and business analytics to solve real-world challenges.
+                    </p>
+                    
+                    <div class="text-center space-y-6">
+                        <div class="text-sm text-gray-400 uppercase tracking-wider">Specializing In:</div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-cyan-900 bg-opacity-30 text-cyan-300 p-3 rounded-lg text-center border border-cyan-500">
+                                <i class="fas fa-brain mb-2 block"></i>
+                                <div class="text-xs uppercase">AI Strategy</div>
+                            </div>
+                            <div class="bg-purple-900 bg-opacity-30 text-purple-300 p-3 rounded-lg text-center border border-purple-500">
+                                <i class="fas fa-robot mb-2 block"></i>
+                                <div class="text-xs uppercase">ML Solutions</div>
+                            </div>
+                            <div class="bg-pink-900 bg-opacity-30 text-pink-300 p-3 rounded-lg text-center border border-pink-500">
+                                <i class="fas fa-chart-line mb-2 block"></i>
+                                <div class="text-xs uppercase">Analytics</div>
+                            </div>
+                            <div class="bg-green-900 bg-opacity-30 text-green-300 p-3 rounded-lg text-center border border-green-500">
+                                <i class="fas fa-lightbulb mb-2 block"></i>
+                                <div class="text-xs uppercase">Innovation</div>
+                            </div>
+                        </div>
+                        
+                        <button class="cyber-button w-full" onclick="window.location.href='mailto:aditisagesh1703@gmail.com'">
+                            Connect for Opportunities
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- AI Chatbot -->
+    <div id="chatbot" class="fixed bottom-6 right-6 z-50">
+        <!-- Chat Toggle Button -->
+        <button id="chatToggle" class="w-16 h-16 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 neon-border">
+            <i class="fas fa-robot text-white text-xl"></i>
+            <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
+        </button>
+        
+        <!-- Chat Window -->
+        <div id="chatWindow" class="absolute bottom-20 right-0 w-80 h-96 bg-black bg-opacity-95 rounded-xl neon-border transform scale-0 origin-bottom-right transition-all duration-300 backdrop-blur-md">
+            <!-- Chat Header -->
+            <div class="flex items-center justify-between p-4 border-b border-cyan-500 border-opacity-30">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-robot text-white text-sm"></i>
+                    </div>
+                    <div>
+                        <div class="text-cyan-400 font-bold text-sm" style="font-family: 'Orbitron', monospace;">AURA AI</div>
+                        <div class="text-green-400 text-xs flex items-center">
+                            <div class="w-2 h-2 bg-green-400 rounded-full mr-1 animate-pulse"></div>
+                            Online
+                        </div>
+                    </div>
+                </div>
+                <button id="chatClose" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="flex-1 p-4 h-64 overflow-y-auto space-y-3 scrollbar-thin scrollbar-thumb-cyan-500 scrollbar-track-gray-800">
+                <div class="flex items-start space-x-2">
+                    <div class="w-6 h-6 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-white text-xs"></i>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 rounded-lg p-3 max-w-xs">
+                        <div class="text-cyan-400 text-xs mb-1">AURA AI</div>
+                        <div class="text-white text-sm">Hello! I'm Aditi's AI assistant. I can help you learn more about her projects, skills, and experience. What would you like to know?</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Input -->
+            <div class="p-4 border-t border-cyan-500 border-opacity-30">
+                <div class="flex space-x-2">
+                    <input 
+                        id="chatInput" 
+                        type="text" 
+                        placeholder="Ask about Aditi's work..." 
+                        class="flex-1 bg-gray-800 bg-opacity-50 border border-cyan-500 border-opacity-30 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-cyan-400 placeholder-gray-400"
+                    >
+                    <button id="chatSend" class="bg-gradient-to-r from-cyan-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:scale-105 transition-all duration-200">
+                        <i class="fas fa-paper-plane text-sm"></i>
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-1 mt-2">
+                    <button class="quick-question bg-gray-800 bg-opacity-30 text-cyan-400 text-xs px-2 py-1 rounded border border-cyan-500 border-opacity-30 hover:bg-cyan-500 hover:text-black transition-all" data-question="Tell me about Aditi's projects">Projects</button>
+                    <button class="quick-question bg-gray-800 bg-opacity-30 text-cyan-400 text-xs px-2 py-1 rounded border border-cyan-500 border-opacity-30 hover:bg-cyan-500 hover:text-black transition-all" data-question="What are her technical skills?">Skills</button>
+                    <button class="quick-question bg-gray-800 bg-opacity-30 text-cyan-400 text-xs px-2 py-1 rounded border border-cyan-500 border-opacity-30 hover:bg-cyan-500 hover:text-black transition-all" data-question="How can I contact her?">Contact</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-cyan-500 border-opacity-30">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-6">
+                <div class="text-2xl font-bold text-cyan-400 mb-2" style="font-family: 'Orbitron', monospace;">
+                    &lt;ADITI.SAGESH&gt;
+                </div>
+                <p class="text-gray-400">Bridging AI Innovation with Business Impact</p>
+            </div>
+            
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="mailto:aditisagesh1703@gmail.com" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <i class="fas fa-envelope text-xl"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/aditi-sagesh-1a9ab127a" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </a>
+                <a href="tel:+919345903070" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <i class="fas fa-phone text-xl"></i>
+                </a>
+            </div>
+            
+            <div class="text-gray-500 text-sm">
+                © 2024 Aditi Sagesh • Crafted with <span class="text-red-400">♥</span> and AI
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorTrails = [];
+        
+        // Create cursor trails
+        for (let i = 0; i < 10; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.body.appendChild(trail);
+            cursorTrails.push(trail);
+        }
+        
+        let mouseX = 0, mouseY = 0;
+        let trailX = 0, trailY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursor.style.left = mouseX - 10 + 'px';
+            cursor.style.top = mouseY - 10 + 'px';
+        });
+        
+        // Animate cursor trails
+        function animateTrails() {
+            trailX += (mouseX - trailX) * 0.1;
+            trailY += (mouseY - trailY) * 0.1;
+            
+            cursorTrails.forEach((trail, index) => {
+                const nextTrail = cursorTrails[index + 1] || { style: { left: trailX + 'px', top: trailY + 'px' } };
+                
+                trail.style.left = nextTrail.style.left;
+                trail.style.top = nextTrail.style.top;
+                trail.style.opacity = (10 - index) / 10;
+            });
+            
+            requestAnimationFrame(animateTrails);
+        }
+        animateTrails();
+        
+        // Typing Animation
+        const texts = [
+            "AI/ML Engineer",
+            "Business Strategist",
+            "Data Scientist", 
+            "Innovation Catalyst",
+            "Tech Visionary"
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function typeWriter() {
+            const currentText = texts[textIndex];
+            const typingElement = document.getElementById('typingText');
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+            }
+            
+            const speed = isDeleting ? 50 : 100;
+            setTimeout(typeWriter, speed);
+        }
+        
+        typeWriter();
+        
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight);
+            scrollProgress.style.transform = `scaleX(${scrollPercent})`;
+        });
+        
+        // Particle System
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.width = Math.random() * 4 + 2 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDuration = Math.random() * 3 + 5 + 's';
+            particle.style.opacity = Math.random() * 0.5 + 0.2;
+            
+            document.getElementById('particles').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
+        }
+        
+        setInterval(createParticle, 300);
+        
+        // Smooth Scrolling
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // Navigation smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = 'all 0.8s ease';
+            observer.observe(section);
+        });
+        
+        // Add interactive hover effects
+        document.querySelectorAll('.holo-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) rotateX(5deg)';
+                this.style.boxShadow = '0 20px 40px rgba(0, 255, 255, 0.3)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotateX(0)';
+                this.style.boxShadow = 'none';
+            });
+        });
+        
+        // Glitch effect on scroll
+        window.addEventListener('scroll', () => {
+            const glitchElements = document.querySelectorAll('.glitch');
+            const scrollY = window.scrollY;
+            
+            glitchElements.forEach((element, index) => {
+                if (scrollY > index * 200) {
+                    element.style.animationPlayState = 'running';
+                } else {
+                    element.style.animationPlayState = 'paused';
+                }
+            });
+        });
+        
+        // Chatbot Functionality
+        const chatToggle = document.getElementById('chatToggle');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatClose = document.getElementById('chatClose');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const chatMessages = document.getElementById('chatMessages');
+        const quickQuestions = document.querySelectorAll('.quick-question');
+        
+        let chatOpen = false;
+        
+        // Toggle chat window
+        chatToggle.addEventListener('click', () => {
+            chatOpen = !chatOpen;
+            if (chatOpen) {
+                chatWindow.style.transform = 'scale(1)';
+                chatWindow.style.opacity = '1';
+                chatInput.focus();
+            } else {
+                chatWindow.style.transform = 'scale(0)';
+                chatWindow.style.opacity = '0';
+            }
+        });
+        
+        chatClose.addEventListener('click', () => {
+            chatOpen = false;
+            chatWindow.style.transform = 'scale(0)';
+            chatWindow.style.opacity = '0';
+        });
+        
+        // AI Responses Database
+        const aiResponses = {
+            projects: {
+                keywords: ['project', 'work', 'portfolio', 'built', 'created', 'developed'],
+                response: `🚀 <strong>Aditi's Key Projects:</strong><br><br>
+                <span class="text-cyan-400">1. Autonomous Vehicle Detection</span><br>
+                • 84% precision in real-time object detection<br>
+                • Advanced computer vision for traffic analysis<br>
+                • Tech: Python, OpenCV, TensorFlow<br><br>
+                
+                <span class="text-purple-400">2. Auralytics - Deepfake Detection</span><br>
+                • 90%+ accuracy in audio deepfake detection<br>
+                • CNN-LSTM architecture with forensic applications<br>
+                • 40% better performance, 60% faster processing<br><br>
+                
+                <span class="text-green-400">3. AI-Powered Material Analysis (CSIR-CEERI)</span><br>
+                • R² 0.9997 accuracy in X-ray based wood density prediction<br>
+                • Advanced THz and X-ray imaging for non-destructive testing<br>
+                • Ensemble learning with XGBoost, CatBoost, Random Forest<br><br>
+                
+                All projects demonstrate her expertise in cutting-edge AI/ML research! 💡`
+            },
+            skills: {
+                keywords: ['skill', 'technology', 'tech', 'programming', 'language', 'framework'],
+                response: `⚡ <strong>Aditi's Technical Arsenal:</strong><br><br>
+                <span class="text-cyan-400">Programming:</span><br>
+                • Python (95%) - Primary language<br>
+                • SQL (90%) - Database expertise<br>
+                • Java (80%) - Object-oriented development<br><br>
+                
+                <span class="text-purple-400">AI/ML Stack:</span><br>
+                • TensorFlow (92%) - Deep learning<br>
+                • Scikit-learn (95%) - Machine learning<br>
+                • OpenCV (88%) - Computer vision<br><br>
+                
+                <span class="text-pink-400">Business Skills:</span><br>
+                • Analytics (93%) - Data-driven insights<br>
+                • Strategy (87%) - Business transformation<br>
+                • Leadership (90%) - Team management<br><br>
+                
+                She bridges technical expertise with business acumen! 🎯`
+            },
+            contact: {
+                keywords: ['contact', 'reach', 'email', 'phone', 'linkedin', 'connect'],
+                response: `📡 <strong>Connect with Aditi:</strong><br><br>
+                <span class="text-green-400">📧 Email:</span> aditisagesh1703@gmail.com<br>
+                <span class="text-blue-400">📱 Phone:</span> +91-9345903070<br>
+                <span class="text-cyan-400">💼 LinkedIn:</span> aditi-sagesh-1a9ab127a<br>
+                <span class="text-purple-400">📍 Location:</span> Chennai, India<br><br>
+                
+                <strong>Status:</strong> <span class="text-pink-400">Available for Innovation</span><br><br>
+                
+                She specializes in AI Strategy, ML Solutions, Business Analytics, and Data Consulting. Ready to transform your business with cutting-edge AI! 🚀`
+            },
+            education: {
+                keywords: ['education', 'degree', 'study', 'university', 'college', 'cgpa'],
+                response: `🎓 <strong>Educational Background:</strong><br><br>
+                <span class="text-cyan-400">Degree:</span> B.E in Computer Science & Engineering (AI & ML)<br>
+                <span class="text-blue-400">College:</span> Sri Sairam Engineering College, Chennai<br>
+                <span class="text-green-400">CGPA:</span> 8.43/10<br>
+                <span class="text-purple-400">Duration:</span> October 2023 - Present<br>
+                <span class="text-pink-400">Previous:</span> HSC 83% from Velammal Bodhi Campus<br><br>
+                
+                Her academic foundation combines technical AI/ML expertise with practical research experience! 📊`
+            },
+            experience: {
+                keywords: ['experience', 'work', 'job', 'career', 'professional', 'fresher', 'intern', 'research'],
+                response: `🌟 <strong>Professional Experience:</strong><br><br>
+                <span class="text-green-400">Research Intern - CSIR-CEERI (June-July 2025)</span><br>
+                • Designed AI pipelines for non-destructive testing<br>
+                • Achieved R² 0.9997 accuracy in predictive modeling<br>
+                • Worked with THz and X-ray imaging technologies<br><br>
+                
+                <span class="text-blue-400">Security Analyst - Tata Cybersecurity (June 2025)</span><br>
+                • Completed virtual cybersecurity simulation on Forage<br>
+                • Specialized in Identity and Access Management (IAM)<br>
+                • Developed comprehensive technical documentation<br><br>
+                
+                <span class="text-yellow-400">Patent Filed:</span> AI-Optimized Highway CO₂ Capture System<br><br>
+                
+                Strong combination of research experience and practical applications! 🚀`
+            },
+            default: {
+                keywords: [],
+                response: `🤖 <strong>I'm AURA AI, Aditi's assistant!</strong><br><br>
+                I can help you learn about:<br>
+                • Her <span class="text-cyan-400">projects</span> and technical work<br>
+                • Her <span class="text-purple-400">skills</span> and expertise<br>
+                • How to <span class="text-pink-400">contact</span> her<br>
+                • Her <span class="text-green-400">education</span> and background<br><br>
+                
+                Try asking: "Tell me about her projects" or use the quick buttons below! ⚡`
+            }
+        };
+        
+        // Add user message to chat
+        function addUserMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex items-start space-x-2 justify-end';
+            messageDiv.innerHTML = `
+                <div class="bg-gradient-to-r from-cyan-500 to-purple-500 bg-opacity-20 rounded-lg p-3 max-w-xs">
+                    <div class="text-cyan-400 text-xs mb-1 text-right">YOU</div>
+                    <div class="text-white text-sm">${message}</div>
+                </div>
+                <div class="w-6 h-6 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-user text-white text-xs"></i>
+                </div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Add AI message to chat with typing effect
+        function addAIMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex items-start space-x-2';
+            messageDiv.innerHTML = `
+                <div class="w-6 h-6 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-robot text-white text-xs"></i>
+                </div>
+                <div class="bg-gray-800 bg-opacity-50 rounded-lg p-3 max-w-xs">
+                    <div class="text-cyan-400 text-xs mb-1">AURA AI</div>
+                    <div class="text-white text-sm typing-indicator">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Add typing indicator styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .typing-indicator {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                }
+                .dot {
+                    width: 4px;
+                    height: 4px;
+                    background: #00ffff;
+                    border-radius: 50%;
+                    animation: typing 1.4s infinite;
+                }
+                .dot:nth-child(2) { animation-delay: 0.2s; }
+                .dot:nth-child(3) { animation-delay: 0.4s; }
+                @keyframes typing {
+                    0%, 60%, 100% { opacity: 0.3; }
+                    30% { opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Replace with actual message after delay
+            setTimeout(() => {
+                const messageContent = messageDiv.querySelector('.text-white.text-sm');
+                messageContent.innerHTML = message;
+                messageContent.classList.remove('typing-indicator');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1500);
+        }
+        
+        // Get AI response based on user input
+        function getAIResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            for (const [category, data] of Object.entries(aiResponses)) {
+                if (category === 'default') continue;
+                
+                if (data.keywords.some(keyword => message.includes(keyword))) {
+                    return data.response;
+                }
+            }
+            
+            return aiResponses.default.response;
+        }
+        
+        // Send message function
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            addUserMessage(message);
+            chatInput.value = '';
+            
+            // Get and send AI response
+            setTimeout(() => {
+                const response = getAIResponse(message);
+                addAIMessage(response);
+            }, 500);
+        }
+        
+        // Event listeners
+        chatSend.addEventListener('click', sendMessage);
+        
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Quick question buttons
+        quickQuestions.forEach(button => {
+            button.addEventListener('click', () => {
+                const question = button.getAttribute('data-question');
+                chatInput.value = question;
+                sendMessage();
+            });
+        });
+        
+        // Auto-scroll chat messages
+        const observer2 = new MutationObserver(() => {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+        
+        observer2.observe(chatMessages, { childList: true });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967bebf3c0af850d',t:'MTc1Mzk1MjU5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
