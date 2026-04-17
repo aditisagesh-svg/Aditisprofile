@@ -1,1435 +1,1496 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aditi Sagesh - AI/ML Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
-        
-        :root {
-            --neon-blue: #00ffff;
-            --neon-pink: #ff0080;
-            --neon-purple: #8000ff;
-            --neon-green: #00ff41;
-            --dark-bg: #0a0a0a;
-            --darker-bg: #050505;
-            --card-bg: #111111;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background: var(--dark-bg);
-            color: #ffffff;
-            overflow-x: hidden;
-            cursor: none;
-        }
-        
-        /* Custom Cursor */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--neon-blue);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
-        }
-        
-        .cursor-trail {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: var(--neon-blue);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-        }
-        
-        /* Animated Background */
-        .cyber-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-            z-index: -2;
-        }
-        
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-        
-        /* Glitch Effects */
-        .glitch {
-            position: relative;
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-        }
-        
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .glitch::before {
-            animation: glitch-1 2s infinite;
-            color: var(--neon-pink);
-            z-index: -1;
-        }
-        
-        .glitch::after {
-            animation: glitch-2 2s infinite;
-            color: var(--neon-blue);
-            z-index: -2;
-        }
-        
-        @keyframes glitch-1 {
-            0%, 14%, 15%, 49%, 50%, 99%, 100% {
-                transform: translate(0);
-            }
-            15%, 49% {
-                transform: translate(-2px, -1px);
-            }
-        }
-        
-        @keyframes glitch-2 {
-            0%, 20%, 21%, 62%, 63%, 99%, 100% {
-                transform: translate(0);
-            }
-            21%, 62% {
-                transform: translate(2px, 1px);
-            }
-        }
-        
-        /* Neon Glow Effects */
-        .neon-glow {
-            text-shadow: 
-                0 0 10px rgba(0, 255, 255, 0.5);
-        }
-        
-        .neon-border {
-            border: 2px solid var(--neon-blue);
-            box-shadow: 
-                0 0 10px var(--neon-blue),
-                inset 0 0 10px rgba(0, 255, 255, 0.1);
-        }
-        
-        /* Holographic Cards */
-        .holo-card {
-            background: linear-gradient(
-                45deg,
-                rgba(0, 255, 255, 0.1) 0%,
-                rgba(255, 0, 128, 0.1) 25%,
-                rgba(128, 0, 255, 0.1) 50%,
-                rgba(0, 255, 65, 0.1) 75%,
-                rgba(0, 255, 255, 0.1) 100%
-            );
-            background-size: 400% 400%;
-            animation: holoShift 4s ease-in-out infinite;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        @keyframes holoShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        /* Floating Animation */
-        .float {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        /* Typing Effect */
-        .typewriter {
-            border-right: 3px solid var(--neon-green);
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 50% { border-color: var(--neon-green); }
-            51%, 100% { border-color: transparent; }
-        }
-        
-        /* Scan Lines */
-        .scanlines::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                transparent 50%,
-                rgba(0, 255, 255, 0.03) 50%
-            );
-            background-size: 100% 4px;
-            animation: scanlines 0.1s linear infinite;
-            pointer-events: none;
-        }
-        
-        @keyframes scanlines {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(4px); }
-        }
-        
-        /* Particle System */
-        .particle {
-            position: absolute;
-            background: var(--neon-blue);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: particleFloat 8s linear infinite;
-        }
-        
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        /* Interactive Elements */
-        .cyber-button {
-            position: relative;
-            background: transparent;
-            border: 2px solid var(--neon-blue);
-            color: var(--neon-blue);
-            padding: 12px 30px;
-            font-family: 'Orbitron', monospace;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-        
-        .cyber-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
-            transition: left 0.5s;
-        }
-        
-        .cyber-button:hover::before {
-            left: 100%;
-        }
-        
-        .cyber-button:hover {
-            color: var(--dark-bg);
-            background: var(--neon-blue);
-            box-shadow: 0 0 30px var(--neon-blue);
-        }
-        
-        /* Progress Bars */
-        .skill-bar {
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            border-radius: 2px;
-            position: relative;
-            transition: width 2s ease;
-        }
-        
-        .skill-progress::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 2s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        /* Terminal Window */
-        .terminal {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--neon-green);
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-        }
-        
-        .terminal-header {
-            background: rgba(0, 255, 65, 0.1);
-            padding: 10px 15px;
-            border-bottom: 1px solid var(--neon-green);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .glitch {
-                font-size: 2rem;
-            }
-            
-            .cyber-button {
-                padding: 10px 20px;
-                font-size: 0.8rem;
-            }
-        }
-        
-        /* Scroll Indicator */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple));
-            transform-origin: left;
-            z-index: 1000;
-        }
-    </style>
-</head>
-<body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    
-    <!-- Animated Background -->
-    <div class="cyber-grid"></div>
-    
-    <!-- Scroll Progress -->
-    <div class="scroll-progress" id="scrollProgress"></div>
-    
-    <!-- Particle System -->
-    <div id="particles"></div>
-    
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-black bg-opacity-50 backdrop-blur-md border-b border-cyan-500 border-opacity-30">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div class="text-xl font-bold text-cyan-400" style="font-family: 'Orbitron', monospace;">
-                    &lt;ADITI.SAGESH&gt;
-                </div>
-                <div class="hidden md:flex space-x-8 text-sm uppercase tracking-wider">
-                    <a href="#home" class="text-cyan-400 hover:text-white transition-colors">Initialize</a>
-                    <a href="#about" class="text-cyan-400 hover:text-white transition-colors">Profile</a>
-                    <a href="#projects" class="text-cyan-400 hover:text-white transition-colors">Projects</a>
-                    <a href="#skills" class="text-cyan-400 hover:text-white transition-colors">Skills</a>
-                    <a href="#contact" class="text-cyan-400 hover:text-white transition-colors">Connect</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative scanlines">
-        <div class="container mx-auto px-6 text-center relative z-10">
-            <div class="mb-12">
-                <h1 class="text-6xl md:text-8xl font-black mb-6 text-cyan-400" data-text="ADITI SAGESH" style="font-family: 'Orbitron', monospace; text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);">
-                    ADITI SAGESH
-                </h1>
-                <div class="text-2xl md:text-3xl mb-8 text-green-400">
-                    <span class="text-cyan-400">&gt;</span>
-                    <span id="typingText" class="typewriter"></span>
-                </div>
-                <p class="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-12">
-                    <span class="text-pink-400">AI/ML Engineer</span> specializing in 
-                    <span class="text-purple-400">business transformation</span> through 
-                    <span class="text-cyan-400">cutting-edge technology</span>. 
-                    Building the future, one algorithm at a time.
-                </p>
-            </div>
-            
-            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-16">
-                <button class="cyber-button" onclick="scrollToSection('projects')">
-                    View Projects
-                </button>
-                <button class="cyber-button" onclick="scrollToSection('contact')" style="border-color: var(--neon-pink); color: var(--neon-pink);">
-                    Initialize Contact
-                </button>
-            </div>
-            
-            <!-- Social Matrix -->
-            <div class="flex justify-center space-x-8 text-2xl">
-                <a href="mailto:aditisagesh1703@gmail.com" class="text-cyan-400 hover:text-white transition-all hover:scale-125">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/aditi-sagesh-1a9ab127a" target="_blank" class="text-cyan-400 hover:text-white transition-all hover:scale-125">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="tel:+919345903070" class="text-cyan-400 hover:text-white transition-all hover:scale-125">
-                    <i class="fas fa-phone"></i>
-                </a>
-            </div>
-        </div>
-        
-        <!-- Floating Elements -->
-        <div class="absolute top-20 left-10 w-4 h-4 bg-cyan-400 rounded-full float opacity-60"></div>
-        <div class="absolute top-40 right-20 w-6 h-6 bg-pink-400 rounded-full float opacity-40" style="animation-delay: 2s;"></div>
-        <div class="absolute bottom-32 left-1/4 w-3 h-3 bg-purple-400 rounded-full float opacity-50" style="animation-delay: 4s;"></div>
-    </section>
-    
-    <!-- About Section -->
-    <section id="about" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 neon-glow" style="font-family: 'Orbitron', monospace;">
-                &lt;PROFILE.INIT&gt;
-            </h2>
-            
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-8">
-                    <div class="terminal">
-                        <div class="terminal-header">
-                            <div class="terminal-dot bg-red-500"></div>
-                            <div class="terminal-dot bg-yellow-500"></div>
-                            <div class="terminal-dot bg-green-500"></div>
-                            <span class="text-green-400 text-sm ml-4">profile.py</span>
-                        </div>
-                        <div class="p-6 text-sm">
-                            <div class="text-purple-400">class <span class="text-white">AditiSagesh</span>:</div>
-                            <div class="ml-4 mt-2 space-y-1">
-                                <div class="text-gray-400"># AI/ML Engineer & Business Strategist</div>
-                                <div class="mt-2">
-                                    <span class="text-cyan-400">def</span> <span class="text-yellow-400">__init__</span>(self):
-                                </div>
-                                <div class="ml-4 space-y-1">
-                                    <div>self.education = <span class="text-green-400">"B.E CSE (AI & ML)"</span></div>
-                                    <div>self.college = <span class="text-green-400">"Sri Sairam Engineering College"</span></div>
-                                    <div>self.cgpa = <span class="text-orange-400">8.43</span></div>
-                                    <div>self.specialization = <span class="text-green-400">"AI Strategy & Analytics"</span></div>
-                                    <div>self.mission = <span class="text-green-400">"AI-Driven Transformation"</span></div>
-                                    <div>self.status = <span class="text-pink-400">"Seeking Opportunities"</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Achievement Stats -->
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="holo-card p-6 text-center neon-border rounded-lg">
-                            <div class="text-3xl font-bold text-cyan-400 mb-2">90%+</div>
-                            <div class="text-sm text-gray-400 uppercase tracking-wider">Accuracy Rate</div>
-                        </div>
-                        <div class="holo-card p-6 text-center neon-border rounded-lg">
-                            <div class="text-3xl font-bold text-pink-400 mb-2">60%</div>
-                            <div class="text-sm text-gray-400 uppercase tracking-wider">Time Optimized</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="space-y-8">
-                    <div class="holo-card p-8 rounded-xl">
-                        <h3 class="text-2xl font-bold mb-6 text-cyan-400" style="font-family: 'Orbitron', monospace;">
-                            MISSION STATEMENT
-                        </h3>
-                        <p class="text-gray-300 leading-relaxed mb-6">
-                            I specialize in transforming complex AI/ML concepts into actionable business solutions. 
-                            With expertise in data-driven decision making and strategic analytics, I bridge the gap 
-                            between cutting-edge technology and measurable business impact.
-                        </p>
-                        <p class="text-gray-300 leading-relaxed">
-                            My focus spans from predictive modeling to AI strategy implementation, always prioritizing 
-                            solutions that deliver tangible value and drive organizational transformation.
-                        </p>
-                        
-                        <!-- Experience Highlights -->
-                        <div class="mt-8 space-y-4">
-                            <h4 class="text-lg font-bold text-cyan-400 mb-4">Recent Experience</h4>
-                            <div class="space-y-3">
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <div class="text-white font-semibold">Research Intern - CSIR-CEERI</div>
-                                        <div class="text-gray-400 text-sm">AI pipelines for non-destructive testing • R² 0.9997 accuracy</div>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <div class="text-white font-semibold">Security Analyst - Tata Cybersecurity</div>
-                                        <div class="text-gray-400 text-sm">IAM principles • Cybersecurity consulting simulation</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Patent Achievement -->
-                        <div class="mt-6 bg-gradient-to-r from-yellow-900 to-orange-900 bg-opacity-30 border border-yellow-500 border-opacity-50 rounded-lg p-4">
-                            <div class="flex items-center space-x-3 mb-2">
-                                <i class="fas fa-certificate text-yellow-400 text-lg"></i>
-                                <span class="text-yellow-400 font-bold text-sm uppercase tracking-wider">Patent Filed</span>
-                            </div>
-                            <div class="text-white text-sm font-semibold">AI-Optimized Highway CO₂ Capture System</div>
-                            <div class="text-gray-300 text-xs">Using MOFs and IoT for Urban Pollution Control</div>
-                        </div>
-                        
-                        <!-- Core Competencies -->
-                        <div class="mt-8 grid grid-cols-2 gap-4">
-                            <div class="flex items-center space-x-3">
-                                <i class="fas fa-brain text-cyan-400"></i>
-                                <span class="text-sm">AI Strategy</span>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <i class="fas fa-chart-line text-pink-400"></i>
-                                <span class="text-sm">Business Analytics</span>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <i class="fas fa-robot text-purple-400"></i>
-                                <span class="text-sm">ML Solutions</span>
-                            </div>
-                            <div class="flex items-center space-x-3">
-                                <i class="fas fa-lightbulb text-green-400"></i>
-                                <span class="text-sm">Innovation</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 neon-glow" style="font-family: 'Orbitron', monospace;">
-                &lt;PROJECTS.EXECUTE&gt;
-            </h2>
-            
-            <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="holo-card rounded-xl overflow-hidden neon-border group hover:scale-105 transition-all duration-300">
-                    <div class="p-8">
-                        <div class="flex items-center mb-6">
-                            <div class="bg-gradient-to-r from-cyan-500 to-blue-500 p-4 rounded-lg mr-4">
-                                <i class="fas fa-car text-white text-2xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-white">Autonomous Vehicle Detection</h3>
-                                <div class="text-cyan-400 text-sm uppercase tracking-wider">Computer Vision • Real-time AI</div>
-                            </div>
-                        </div>
-                        
-                        <p class="text-gray-300 leading-relaxed mb-6">
-                            Advanced object detection system achieving 84% precision in real-time environments. 
-                            Specialized in traffic analysis and hazard avoidance for autonomous vehicle applications.
-                        </p>
-                        
-                        <!-- Metrics -->
-                        <div class="grid grid-cols-2 gap-4 mb-6">
-                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
-                                <div class="text-2xl font-bold text-green-400">84%</div>
-                                <div class="text-xs text-gray-400 uppercase">Precision</div>
-                            </div>
-                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
-                                <div class="text-2xl font-bold text-cyan-400">Real-time</div>
-                                <div class="text-xs text-gray-400 uppercase">Processing</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Tech Stack -->
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 px-3 py-1 rounded-full text-xs border border-blue-500">Python</span>
-                            <span class="bg-green-900 bg-opacity-50 text-green-300 px-3 py-1 rounded-full text-xs border border-green-500">OpenCV</span>
-                            <span class="bg-purple-900 bg-opacity-50 text-purple-300 px-3 py-1 rounded-full text-xs border border-purple-500">TensorFlow</span>
-                            <span class="bg-yellow-900 bg-opacity-50 text-yellow-300 px-3 py-1 rounded-full text-xs border border-yellow-500">Scikit-Learn</span>
-                        </div>
-                        
-                        <button class="w-full cyber-button">
-                            Access Project Data
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Project 2 -->
-                <div class="holo-card rounded-xl overflow-hidden neon-border group hover:scale-105 transition-all duration-300">
-                    <div class="p-8">
-                        <div class="flex items-center mb-6">
-                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-4 rounded-lg mr-4">
-                                <i class="fas fa-microphone text-white text-2xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-white">Auralytics - Deepfake Detection</h3>
-                                <div class="text-purple-400 text-sm uppercase tracking-wider">Audio AI • CNN-LSTM • Security</div>
-                            </div>
-                        </div>
-                        
-                        <p class="text-gray-300 leading-relaxed mb-6">
-                            Revolutionary AI system for real-time deepfake audio detection using advanced CNN-LSTM 
-                            architecture with comprehensive audio feature analysis and forensic applications.
-                        </p>
-                        
-                        <!-- Metrics -->
-                        <div class="grid grid-cols-3 gap-2 mb-6">
-                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
-                                <div class="text-lg font-bold text-green-400">90%+</div>
-                                <div class="text-xs text-gray-400 uppercase">Accuracy</div>
-                            </div>
-                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
-                                <div class="text-lg font-bold text-purple-400">40%</div>
-                                <div class="text-xs text-gray-400 uppercase">Better</div>
-                            </div>
-                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
-                                <div class="text-lg font-bold text-pink-400">60%</div>
-                                <div class="text-xs text-gray-400 uppercase">Faster</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Tech Stack -->
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="bg-purple-900 bg-opacity-50 text-purple-300 px-3 py-1 rounded-full text-xs border border-purple-500">CNN-LSTM</span>
-                            <span class="bg-green-900 bg-opacity-50 text-green-300 px-3 py-1 rounded-full text-xs border border-green-500">Librosa</span>
-                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 px-3 py-1 rounded-full text-xs border border-blue-500">MFCC</span>
-                            <span class="bg-pink-900 bg-opacity-50 text-pink-300 px-3 py-1 rounded-full text-xs border border-pink-500">Real-time</span>
-                        </div>
-                        
-                        <button class="w-full cyber-button" style="border-color: var(--neon-purple); color: var(--neon-purple);">
-                            Access Project Data
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Project 3 -->
-                <div class="holo-card rounded-xl overflow-hidden neon-border group hover:scale-105 transition-all duration-300">
-                    <div class="p-8">
-                        <div class="flex items-center mb-6">
-                            <div class="bg-gradient-to-r from-green-500 to-teal-500 p-4 rounded-lg mr-4">
-                                <i class="fas fa-microscope text-white text-2xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-white">AI-Powered Material Analysis</h3>
-                                <div class="text-green-400 text-sm uppercase tracking-wider">Research • THz Imaging • CSIR-CEERI</div>
-                            </div>
-                        </div>
-                        
-                        <p class="text-gray-300 leading-relaxed mb-6">
-                            Advanced AI pipelines for non-destructive testing using Terahertz and X-ray imaging. 
-                            Achieved exceptional accuracy in wood density prediction and defect detection.
-                        </p>
-                        
-                        <!-- Metrics -->
-                        <div class="grid grid-cols-2 gap-4 mb-6">
-                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
-                                <div class="text-2xl font-bold text-green-400">R² 0.9997</div>
-                                <div class="text-xs text-gray-400 uppercase">X-ray Model</div>
-                            </div>
-                            <div class="bg-black bg-opacity-50 p-3 rounded-lg text-center">
-                                <div class="text-2xl font-bold text-teal-400">R² 0.9985</div>
-                                <div class="text-xs text-gray-400 uppercase">THz Model</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Tech Stack -->
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="bg-green-900 bg-opacity-50 text-green-300 px-3 py-1 rounded-full text-xs border border-green-500">XGBoost</span>
-                            <span class="bg-teal-900 bg-opacity-50 text-teal-300 px-3 py-1 rounded-full text-xs border border-teal-500">CatBoost</span>
-                            <span class="bg-blue-900 bg-opacity-50 text-blue-300 px-3 py-1 rounded-full text-xs border border-blue-500">MATLAB</span>
-                            <span class="bg-purple-900 bg-opacity-50 text-purple-300 px-3 py-1 rounded-full text-xs border border-purple-500">Signal Processing</span>
-                        </div>
-                        
-                        <button class="w-full cyber-button" style="border-color: var(--neon-green); color: var(--neon-green);">
-                            Access Research Data
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 neon-glow" style="font-family: 'Orbitron', monospace;">
-                &lt;SKILLS.MATRIX&gt;
-            </h2>
-            
-            <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Programming -->
-                <div class="holo-card p-8 rounded-xl neon-border">
-                    <h3 class="text-xl font-bold mb-6 text-cyan-400 flex items-center">
-                        <i class="fas fa-code mr-3"></i>PROGRAMMING
-                    </h3>
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white">Python</span>
-                                <span class="text-cyan-400">95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white">SQL</span>
-                                <span class="text-cyan-400">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white">Java</span>
-                                <span class="text-cyan-400">80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- AI/ML -->
-                <div class="holo-card p-8 rounded-xl neon-border">
-                    <h3 class="text-xl font-bold mb-6 text-purple-400 flex items-center">
-                        <i class="fas fa-brain mr-3"></i>AI/ML STACK
-                    </h3>
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white">TensorFlow</span>
-                                <span class="text-purple-400">92%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 92%; background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white">Scikit-learn</span>
-                                <span class="text-purple-400">95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%; background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white">OpenCV</span>
-                                <span class="text-purple-400">88%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 88%; background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Business -->
-                <div class="holo-card p-8 rounded-xl neon-border">
-                    <h3 class="text-xl font-bold mb-6 text-pink-400 flex items-center">
-                        <i class="fas fa-chart-line mr-3"></i>BUSINESS
-                    </h3>
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white">Analytics</span>
-                                <span class="text-pink-400">93%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 93%; background: linear-gradient(90deg, var(--neon-pink), var(--neon-green));"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white">Strategy</span>
-                                <span class="text-pink-400">87%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 87%; background: linear-gradient(90deg, var(--neon-pink), var(--neon-green));"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span class="text-white">Leadership</span>
-                                <span class="text-pink-400">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%; background: linear-gradient(90deg, var(--neon-pink), var(--neon-green));"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 relative">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-cyan-400 neon-glow" style="font-family: 'Orbitron', monospace;">
-                &lt;CONTACT.ESTABLISH&gt;
-            </h2>
-            
-            <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
-                <div class="space-y-8">
-                    <div class="terminal">
-                        <div class="terminal-header">
-                            <div class="terminal-dot bg-red-500"></div>
-                            <div class="terminal-dot bg-yellow-500"></div>
-                            <div class="terminal-dot bg-green-500"></div>
-                            <span class="text-green-400 text-sm ml-4">contact.json</span>
-                        </div>
-                        <div class="p-6 text-sm">
-                            <div class="text-gray-400">{</div>
-                            <div class="ml-4 space-y-1">
-                                <div><span class="text-cyan-400">"name"</span>: <span class="text-green-400">"Aditi Sagesh"</span>,</div>
-                                <div><span class="text-cyan-400">"email"</span>: <span class="text-green-400">"aditisagesh1703@gmail.com"</span>,</div>
-                                <div><span class="text-cyan-400">"phone"</span>: <span class="text-green-400">"+91-9345903070"</span>,</div>
-                                <div><span class="text-cyan-400">"linkedin"</span>: <span class="text-green-400">"aditi-sagesh-1a9ab127a"</span>,</div>
-                                <div><span class="text-cyan-400">"location"</span>: <span class="text-green-400">"Chennai, India"</span>,</div>
-                                <div><span class="text-cyan-400">"status"</span>: <span class="text-pink-400">"Open to Opportunities"</span>,</div>
-                                <div><span class="text-cyan-400">"specialization"</span>: [</div>
-                                <div class="ml-4">
-                                    <div><span class="text-green-400">"AI Strategy"</span>,</div>
-                                    <div><span class="text-green-400">"ML Solutions"</span>,</div>
-                                    <div><span class="text-green-400">"Business Analytics"</span>,</div>
-                                    <div><span class="text-green-400">"Data Consulting"</span></div>
-                                </div>
-                                <div>]</div>
-                            </div>
-                            <div class="text-gray-400">}</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Contact Links -->
-                    <div class="space-y-4">
-                        <a href="mailto:aditisagesh1703@gmail.com" class="flex items-center p-4 holo-card rounded-lg neon-border hover:scale-105 transition-all">
-                            <i class="fas fa-envelope text-cyan-400 text-xl mr-4"></i>
-                            <div>
-                                <div class="font-semibold text-white">Email Protocol</div>
-                                <div class="text-gray-400 text-sm">aditisagesh1703@gmail.com</div>
-                            </div>
-                        </a>
-                        
-                        <a href="https://www.linkedin.com/in/aditi-sagesh-1a9ab127a" target="_blank" class="flex items-center p-4 holo-card rounded-lg neon-border hover:scale-105 transition-all">
-                            <i class="fab fa-linkedin text-blue-400 text-xl mr-4"></i>
-                            <div>
-                                <div class="font-semibold text-white">Network Interface</div>
-                                <div class="text-gray-400 text-sm">Professional Connection</div>
-                            </div>
-                        </a>
-                        
-                        <a href="tel:+919345903070" class="flex items-center p-4 holo-card rounded-lg neon-border hover:scale-105 transition-all">
-                            <i class="fas fa-phone text-green-400 text-xl mr-4"></i>
-                            <div>
-                                <div class="font-semibold text-white">Voice Channel</div>
-                                <div class="text-gray-400 text-sm">+91-9345903070</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="holo-card p-8 rounded-xl neon-border">
-                    <h3 class="text-2xl font-bold mb-6 text-center text-cyan-400" style="font-family: 'Orbitron', monospace;">
-                        SEEKING OPPORTUNITIES
-                    </h3>
-                    <p class="text-gray-300 text-center mb-8 leading-relaxed">
-                        Fresh AI/ML graduate ready to contribute to innovative projects. Looking for opportunities 
-                        to apply my skills in machine learning, computer vision, and business analytics to solve real-world challenges.
-                    </p>
-                    
-                    <div class="text-center space-y-6">
-                        <div class="text-sm text-gray-400 uppercase tracking-wider">Specializing In:</div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-cyan-900 bg-opacity-30 text-cyan-300 p-3 rounded-lg text-center border border-cyan-500">
-                                <i class="fas fa-brain mb-2 block"></i>
-                                <div class="text-xs uppercase">AI Strategy</div>
-                            </div>
-                            <div class="bg-purple-900 bg-opacity-30 text-purple-300 p-3 rounded-lg text-center border border-purple-500">
-                                <i class="fas fa-robot mb-2 block"></i>
-                                <div class="text-xs uppercase">ML Solutions</div>
-                            </div>
-                            <div class="bg-pink-900 bg-opacity-30 text-pink-300 p-3 rounded-lg text-center border border-pink-500">
-                                <i class="fas fa-chart-line mb-2 block"></i>
-                                <div class="text-xs uppercase">Analytics</div>
-                            </div>
-                            <div class="bg-green-900 bg-opacity-30 text-green-300 p-3 rounded-lg text-center border border-green-500">
-                                <i class="fas fa-lightbulb mb-2 block"></i>
-                                <div class="text-xs uppercase">Innovation</div>
-                            </div>
-                        </div>
-                        
-                        <button class="cyber-button w-full" onclick="window.location.href='mailto:aditisagesh1703@gmail.com'">
-                            Connect for Opportunities
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- AI Chatbot -->
-    <div id="chatbot" class="fixed bottom-6 right-6 z-50">
-        <!-- Chat Toggle Button -->
-        <button id="chatToggle" class="w-16 h-16 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 neon-border">
-            <i class="fas fa-robot text-white text-xl"></i>
-            <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
-        </button>
-        
-        <!-- Chat Window -->
-        <div id="chatWindow" class="absolute bottom-20 right-0 w-80 h-96 bg-black bg-opacity-95 rounded-xl neon-border transform scale-0 origin-bottom-right transition-all duration-300 backdrop-blur-md">
-            <!-- Chat Header -->
-            <div class="flex items-center justify-between p-4 border-b border-cyan-500 border-opacity-30">
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center">
-                        <i class="fas fa-robot text-white text-sm"></i>
-                    </div>
-                    <div>
-                        <div class="text-cyan-400 font-bold text-sm" style="font-family: 'Orbitron', monospace;">AURA AI</div>
-                        <div class="text-green-400 text-xs flex items-center">
-                            <div class="w-2 h-2 bg-green-400 rounded-full mr-1 animate-pulse"></div>
-                            Online
-                        </div>
-                    </div>
-                </div>
-                <button id="chatClose" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <!-- Chat Messages -->
-            <div id="chatMessages" class="flex-1 p-4 h-64 overflow-y-auto space-y-3 scrollbar-thin scrollbar-thumb-cyan-500 scrollbar-track-gray-800">
-                <div class="flex items-start space-x-2">
-                    <div class="w-6 h-6 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-robot text-white text-xs"></i>
-                    </div>
-                    <div class="bg-gray-800 bg-opacity-50 rounded-lg p-3 max-w-xs">
-                        <div class="text-cyan-400 text-xs mb-1">AURA AI</div>
-                        <div class="text-white text-sm">Hello! I'm Aditi's AI assistant. I can help you learn more about her projects, skills, and experience. What would you like to know?</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Chat Input -->
-            <div class="p-4 border-t border-cyan-500 border-opacity-30">
-                <div class="flex space-x-2">
-                    <input 
-                        id="chatInput" 
-                        type="text" 
-                        placeholder="Ask about Aditi's work..." 
-                        class="flex-1 bg-gray-800 bg-opacity-50 border border-cyan-500 border-opacity-30 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-cyan-400 placeholder-gray-400"
-                    >
-                    <button id="chatSend" class="bg-gradient-to-r from-cyan-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:scale-105 transition-all duration-200">
-                        <i class="fas fa-paper-plane text-sm"></i>
-                    </button>
-                </div>
-                <div class="flex flex-wrap gap-1 mt-2">
-                    <button class="quick-question bg-gray-800 bg-opacity-30 text-cyan-400 text-xs px-2 py-1 rounded border border-cyan-500 border-opacity-30 hover:bg-cyan-500 hover:text-black transition-all" data-question="Tell me about Aditi's projects">Projects</button>
-                    <button class="quick-question bg-gray-800 bg-opacity-30 text-cyan-400 text-xs px-2 py-1 rounded border border-cyan-500 border-opacity-30 hover:bg-cyan-500 hover:text-black transition-all" data-question="What are her technical skills?">Skills</button>
-                    <button class="quick-question bg-gray-800 bg-opacity-30 text-cyan-400 text-xs px-2 py-1 rounded border border-cyan-500 border-opacity-30 hover:bg-cyan-500 hover:text-black transition-all" data-question="How can I contact her?">Contact</button>
-                </div>
-            </div>
-        </div>
-    </div>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aditi Sagesh | AI/ML Engineer</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Rajdhani:wght@300;400;500;600;700&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet">
+  <style>
+:root {
+  --neon-cyan: #00f0ff;
+  --neon-magenta: #ff00ff;
+  --neon-green: #39ff14;
+  --neon-yellow: #ffff00;
+  --neon-orange: #ff6600;
+  --bg-dark: #0a0a0f;
+  --bg-card: #0d0d1a;
+  --bg-card-hover: #141428;
+  --text-primary: #e0e0ff;
+  --text-secondary: #8888aa;
+  --border-glow: rgba(0, 240, 255, 0.3);
+}
 
-    <!-- Footer -->
-    <footer class="py-12 border-t border-cyan-500 border-opacity-30">
-        <div class="container mx-auto px-6 text-center">
-            <div class="mb-6">
-                <div class="text-2xl font-bold text-cyan-400 mb-2" style="font-family: 'Orbitron', monospace;">
-                    &lt;ADITI.SAGESH&gt;
-                </div>
-                <p class="text-gray-400">Bridging AI Innovation with Business Impact</p>
-            </div>
-            
-            <div class="flex justify-center space-x-6 mb-6">
-                <a href="mailto:aditisagesh1703@gmail.com" class="text-gray-400 hover:text-cyan-400 transition-colors">
-                    <i class="fas fa-envelope text-xl"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/aditi-sagesh-1a9ab127a" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">
-                    <i class="fab fa-linkedin text-xl"></i>
-                </a>
-                <a href="tel:+919345903070" class="text-gray-400 hover:text-cyan-400 transition-colors">
-                    <i class="fas fa-phone text-xl"></i>
-                </a>
-            </div>
-            
-            <div class="text-gray-500 text-sm">
-                © 2024 Aditi Sagesh  <span class="text-red-400">♥</span> 
-            </div>
-        </div>
-    </footer>
-    
-    <script>
-        // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorTrails = [];
-        
-        // Create cursor trails
-        for (let i = 0; i < 10; i++) {
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail';
-            document.body.appendChild(trail);
-            cursorTrails.push(trail);
-        }
-        
-        let mouseX = 0, mouseY = 0;
-        let trailX = 0, trailY = 0;
-        
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            cursor.style.left = mouseX - 10 + 'px';
-            cursor.style.top = mouseY - 10 + 'px';
-        });
-        
-        // Animate cursor trails
-        function animateTrails() {
-            trailX += (mouseX - trailX) * 0.1;
-            trailY += (mouseY - trailY) * 0.1;
-            
-            cursorTrails.forEach((trail, index) => {
-                const nextTrail = cursorTrails[index + 1] || { style: { left: trailX + 'px', top: trailY + 'px' } };
-                
-                trail.style.left = nextTrail.style.left;
-                trail.style.top = nextTrail.style.top;
-                trail.style.opacity = (10 - index) / 10;
-            });
-            
-            requestAnimationFrame(animateTrails);
-        }
-        animateTrails();
-        
-        // Typing Animation
-        const texts = [
-            "AI/ML Engineer",
-            "Business Strategist",
-            "Data Scientist", 
-            "Innovation Catalyst",
-            "Tech Visionary"
-        ];
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        
-        function typeWriter() {
-            const currentText = texts[textIndex];
-            const typingElement = document.getElementById('typingText');
-            
-            if (isDeleting) {
-                typingElement.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typingElement.textContent = currentText.substring(0, charIndex + 1);
-                charIndex++;
-            }
-            
-            if (!isDeleting && charIndex === currentText.length) {
-                setTimeout(() => isDeleting = true, 2000);
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % texts.length;
-            }
-            
-            const speed = isDeleting ? 50 : 100;
-            setTimeout(typeWriter, speed);
-        }
-        
-        typeWriter();
-        
-        // Scroll Progress
-        window.addEventListener('scroll', () => {
-            const scrollProgress = document.getElementById('scrollProgress');
-            const scrollTop = window.pageYOffset;
-            const docHeight = document.body.scrollHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight);
-            scrollProgress.style.transform = `scaleX(${scrollPercent})`;
-        });
-        
-        // Particle System
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * window.innerWidth + 'px';
-            particle.style.width = Math.random() * 4 + 2 + 'px';
-            particle.style.height = particle.style.width;
-            particle.style.animationDuration = Math.random() * 3 + 5 + 's';
-            particle.style.opacity = Math.random() * 0.5 + 0.2;
-            
-            document.getElementById('particles').appendChild(particle);
-            
-            setTimeout(() => {
-                particle.remove();
-            }, 8000);
-        }
-        
-        setInterval(createParticle, 300);
-        
-        // Smooth Scrolling
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-        
-        // Navigation smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-        
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        // Observe sections
-        document.querySelectorAll('section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(50px)';
-            section.style.transition = 'all 0.8s ease';
-            observer.observe(section);
-        });
-        
-        // Add interactive hover effects
-        document.querySelectorAll('.holo-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) rotateX(5deg)';
-                this.style.boxShadow = '0 20px 40px rgba(0, 255, 255, 0.3)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) rotateX(0)';
-                this.style.boxShadow = 'none';
-            });
-        });
-        
-        // Glitch effect on scroll
-        window.addEventListener('scroll', () => {
-            const glitchElements = document.querySelectorAll('.glitch');
-            const scrollY = window.scrollY;
-            
-            glitchElements.forEach((element, index) => {
-                if (scrollY > index * 200) {
-                    element.style.animationPlayState = 'running';
-                } else {
-                    element.style.animationPlayState = 'paused';
-                }
-            });
-        });
-        
-        // Chatbot Functionality
-        const chatToggle = document.getElementById('chatToggle');
-        const chatWindow = document.getElementById('chatWindow');
-        const chatClose = document.getElementById('chatClose');
-        const chatInput = document.getElementById('chatInput');
-        const chatSend = document.getElementById('chatSend');
-        const chatMessages = document.getElementById('chatMessages');
-        const quickQuestions = document.querySelectorAll('.quick-question');
-        
-        let chatOpen = false;
-        
-        // Toggle chat window
-        chatToggle.addEventListener('click', () => {
-            chatOpen = !chatOpen;
-            if (chatOpen) {
-                chatWindow.style.transform = 'scale(1)';
-                chatWindow.style.opacity = '1';
-                chatInput.focus();
-            } else {
-                chatWindow.style.transform = 'scale(0)';
-                chatWindow.style.opacity = '0';
-            }
-        });
-        
-        chatClose.addEventListener('click', () => {
-            chatOpen = false;
-            chatWindow.style.transform = 'scale(0)';
-            chatWindow.style.opacity = '0';
-        });
-        
-        // AI Responses Database
-        const aiResponses = {
-            projects: {
-                keywords: ['project', 'work', 'portfolio', 'built', 'created', 'developed'],
-                response: `🚀 <strong>Aditi's Key Projects:</strong><br><br>
-                <span class="text-cyan-400">1. Autonomous Vehicle Detection</span><br>
-                • 84% precision in real-time object detection<br>
-                • Advanced computer vision for traffic analysis<br>
-                • Tech: Python, OpenCV, TensorFlow<br><br>
-                
-                <span class="text-purple-400">2. Auralytics - Deepfake Detection</span><br>
-                • 90%+ accuracy in audio deepfake detection<br>
-                • CNN-LSTM architecture with forensic applications<br>
-                • 40% better performance, 60% faster processing<br><br>
-                
-                <span class="text-green-400">3. AI-Powered Material Analysis (CSIR-CEERI)</span><br>
-                • R² 0.9997 accuracy in X-ray based wood density prediction<br>
-                • Advanced THz and X-ray imaging for non-destructive testing<br>
-                • Ensemble learning with XGBoost, CatBoost, Random Forest<br><br>
-                
-                All projects demonstrate her expertise in cutting-edge AI/ML research! 💡`
-            },
-            skills: {
-                keywords: ['skill', 'technology', 'tech', 'programming', 'language', 'framework'],
-                response: `⚡ <strong>Aditi's Technical Arsenal:</strong><br><br>
-                <span class="text-cyan-400">Programming:</span><br>
-                • Python (95%) - Primary language<br>
-                • SQL (90%) - Database expertise<br>
-                • Java (80%) - Object-oriented development<br><br>
-                
-                <span class="text-purple-400">AI/ML Stack:</span><br>
-                • TensorFlow (92%) - Deep learning<br>
-                • Scikit-learn (95%) - Machine learning<br>
-                • OpenCV (88%) - Computer vision<br><br>
-                
-                <span class="text-pink-400">Business Skills:</span><br>
-                • Analytics (93%) - Data-driven insights<br>
-                • Strategy (87%) - Business transformation<br>
-                • Leadership (90%) - Team management<br><br>
-                
-                She bridges technical expertise with business acumen! 🎯`
-            },
-            contact: {
-                keywords: ['contact', 'reach', 'email', 'phone', 'linkedin', 'connect'],
-                response: `📡 <strong>Connect with Aditi:</strong><br><br>
-                <span class="text-green-400">📧 Email:</span> aditisagesh1703@gmail.com<br>
-                <span class="text-blue-400">📱 Phone:</span> +91-9345903070<br>
-                <span class="text-cyan-400">💼 LinkedIn:</span> aditi-sagesh-1a9ab127a<br>
-                <span class="text-purple-400">📍 Location:</span> Chennai, India<br><br>
-                
-                <strong>Status:</strong> <span class="text-pink-400">Available for Innovation</span><br><br>
-                
-                She specializes in AI Strategy, ML Solutions, Business Analytics, and Data Consulting. Ready to transform your business with cutting-edge AI! 🚀`
-            },
-            education: {
-                keywords: ['education', 'degree', 'study', 'university', 'college', 'cgpa'],
-                response: `🎓 <strong>Educational Background:</strong><br><br>
-                <span class="text-cyan-400">Degree:</span> B.E in Computer Science & Engineering (AI & ML)<br>
-                <span class="text-blue-400">College:</span> Sri Sairam Engineering College, Chennai<br>
-                <span class="text-green-400">CGPA:</span> 8.43/10<br>
-                <span class="text-purple-400">Duration:</span> October 2023 - Present<br>
-                <span class="text-pink-400">Previous:</span> HSC 83% from Velammal Bodhi Campus<br><br>
-                
-                Her academic foundation combines technical AI/ML expertise with practical research experience! 📊`
-            },
-            experience: {
-                keywords: ['experience', 'work', 'job', 'career', 'professional', 'fresher', 'intern', 'research'],
-                response: `🌟 <strong>Professional Experience:</strong><br><br>
-                <span class="text-green-400">Research Intern - CSIR-CEERI (June-July 2025)</span><br>
-                • Designed AI pipelines for non-destructive testing<br>
-                • Achieved R² 0.9997 accuracy in predictive modeling<br>
-                • Worked with THz and X-ray imaging technologies<br><br>
-                
-                <span class="text-blue-400">Security Analyst - Tata Cybersecurity (June 2025)</span><br>
-                • Completed virtual cybersecurity simulation on Forage<br>
-                • Specialized in Identity and Access Management (IAM)<br>
-                • Developed comprehensive technical documentation<br><br>
-                
-                <span class="text-yellow-400">Patent Filed:</span> AI-Optimized Highway CO₂ Capture System<br><br>
-                
-                Strong combination of research experience and practical applications! 🚀`
-            },
-            default: {
-                keywords: [],
-                response: `🤖 <strong>I'm AURA AI, Aditi's assistant!</strong><br><br>
-                I can help you learn about:<br>
-                • Her <span class="text-cyan-400">projects</span> and technical work<br>
-                • Her <span class="text-purple-400">skills</span> and expertise<br>
-                • How to <span class="text-pink-400">contact</span> her<br>
-                • Her <span class="text-green-400">education</span> and background<br><br>
-                
-                Try asking: "Tell me about her projects" or use the quick buttons below! ⚡`
-            }
-        };
-        
-        // Add user message to chat
-        function addUserMessage(message) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'flex items-start space-x-2 justify-end';
-            messageDiv.innerHTML = `
-                <div class="bg-gradient-to-r from-cyan-500 to-purple-500 bg-opacity-20 rounded-lg p-3 max-w-xs">
-                    <div class="text-cyan-400 text-xs mb-1 text-right">YOU</div>
-                    <div class="text-white text-sm">${message}</div>
-                </div>
-                <div class="w-6 h-6 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full flex items-center justify-center flex-shrink-0">
-                    <i class="fas fa-user text-white text-xs"></i>
-                </div>
-            `;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-        
-        // Add AI message to chat with typing effect
-        function addAIMessage(message) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'flex items-start space-x-2';
-            messageDiv.innerHTML = `
-                <div class="w-6 h-6 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <i class="fas fa-robot text-white text-xs"></i>
-                </div>
-                <div class="bg-gray-800 bg-opacity-50 rounded-lg p-3 max-w-xs">
-                    <div class="text-cyan-400 text-xs mb-1">AURA AI</div>
-                    <div class="text-white text-sm typing-indicator">
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
-                </div>
-            `;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-            
-            // Add typing indicator styles
-            const style = document.createElement('style');
-            style.textContent = `
-                .typing-indicator {
-                    display: flex;
-                    align-items: center;
-                    gap: 4px;
-                }
-                .dot {
-                    width: 4px;
-                    height: 4px;
-                    background: #00ffff;
-                    border-radius: 50%;
-                    animation: typing 1.4s infinite;
-                }
-                .dot:nth-child(2) { animation-delay: 0.2s; }
-                .dot:nth-child(3) { animation-delay: 0.4s; }
-                @keyframes typing {
-                    0%, 60%, 100% { opacity: 0.3; }
-                    30% { opacity: 1; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Replace with actual message after delay
-            setTimeout(() => {
-                const messageContent = messageDiv.querySelector('.text-white.text-sm');
-                messageContent.innerHTML = message;
-                messageContent.classList.remove('typing-indicator');
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 1500);
-        }
-        
-        // Get AI response based on user input
-        function getAIResponse(userMessage) {
-            const message = userMessage.toLowerCase();
-            
-            for (const [category, data] of Object.entries(aiResponses)) {
-                if (category === 'default') continue;
-                
-                if (data.keywords.some(keyword => message.includes(keyword))) {
-                    return data.response;
-                }
-            }
-            
-            return aiResponses.default.response;
-        }
-        
-        // Send message function
-        function sendMessage() {
-            const message = chatInput.value.trim();
-            if (!message) return;
-            
-            addUserMessage(message);
-            chatInput.value = '';
-            
-            // Get and send AI response
-            setTimeout(() => {
-                const response = getAIResponse(message);
-                addAIMessage(response);
-            }, 500);
-        }
-        
-        // Event listeners
-        chatSend.addEventListener('click', sendMessage);
-        
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-        
-        // Quick question buttons
-        quickQuestions.forEach(button => {
-            button.addEventListener('click', () => {
-                const question = button.getAttribute('data-question');
-                chatInput.value = question;
-                sendMessage();
-            });
-        });
-        
-        // Auto-scroll chat messages
-        const observer2 = new MutationObserver(() => {
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        });
-        
-        observer2.observe(chatMessages, { childList: true });
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967bebf3c0af850d',t:'MTc1Mzk1MjU5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* Custom Cursor */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--neon-cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  transition: transform 0.1s;
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 2px solid var(--neon-magenta);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  transition: transform 0.15s, width 0.2s, height 0.2s;
+  box-shadow: 0 0 10px rgba(255,0,255,0.3);
+}
+
+/* Particles */
+#particles-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Scanline */
+.scanline-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,240,255,0.02) 2px,
+    rgba(0,240,255,0.02) 4px
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* Navigation */
+.cyber-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-glow);
+}
+.nav-logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan);
+  letter-spacing: 3px;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  position: relative;
+}
+.nav-links a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: var(--neon-cyan);
+  transition: width 0.3s;
+  box-shadow: 0 0 5px var(--neon-cyan);
+}
+.nav-links a:hover::after { width: 100%; }
+
+/* Sections */
+.section-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  position: relative;
+  display: inline-block;
+}
+.section-title::before {
+  content: '//';
+  color: var(--neon-magenta);
+  margin-right: 0.5rem;
+}
+.section-title .accent { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
+
+/* Hero */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-top: 80px;
+}
+.hero-content { position: relative; z-index: 2; }
+.hero-glitch {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.hero-glitch .line1 { color: var(--text-primary); display: block; }
+.hero-glitch .line2 {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px rgba(0,240,255,0.3);
+  display: block;
+}
+.hero-subtitle {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+.typing-text {
+  color: var(--neon-green);
+  border-right: 2px solid var(--neon-green);
+  animation: blink-caret 0.7s step-end infinite;
+}
+@keyframes blink-caret { from, to { border-color: transparent; } 50% { border-color: var(--neon-green); } }
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.stat-box {
+  background: rgba(0,240,255,0.05);
+  border: 1px solid var(--border-glow);
+  padding: 1rem 1.5rem;
+  text-align: center;
+  min-width: 120px;
+}
+.stat-number {
+  font-family: 'Orbitron', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan);
+}
+.stat-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 0.25rem;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.cyber-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  padding: 0.8rem 2rem;
+  border: 1px solid var(--neon-cyan);
+  background: transparent;
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: none;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.cyber-btn:hover {
+  background: rgba(0,240,255,0.1);
+  box-shadow: 0 0 20px rgba(0,240,255,0.3), inset 0 0 20px rgba(0,240,255,0.1);
+}
+.cyber-btn.primary {
+  background: var(--neon-cyan);
+  color: var(--bg-dark);
+  font-weight: 700;
+}
+.cyber-btn.primary:hover {
+  background: #33f5ff;
+  box-shadow: 0 0 30px rgba(0,240,255,0.5);
+}
+
+/* Terminal */
+.terminal-section { padding: 5rem 0; }
+.terminal-window {
+  background: rgba(10,10,20,0.9);
+  border: 1px solid var(--border-glow);
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 700px;
+}
+.terminal-header {
+  background: rgba(0,240,255,0.08);
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border-glow);
+}
+.terminal-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.terminal-dot.red { background: #ff5f57; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #28c840; }
+.terminal-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-left: 0.5rem;
+}
+.terminal-body {
+  padding: 1.2rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+.terminal-body .comment { color: #666; }
+.terminal-body .keyword { color: var(--neon-magenta); }
+.terminal-body .string { color: var(--neon-green); }
+.terminal-body .variable { color: var(--neon-cyan); }
+.terminal-body .number { color: var(--neon-orange); }
+.terminal-body .prompt { color: var(--neon-cyan); }
+
+/* Experience */
+.experience-section { padding: 5rem 0; }
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-magenta), var(--neon-green));
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-left: 1.5rem;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2rem; top: 0.5rem;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px rgba(0,240,255,0.3);
+  transform: translateX(-5px);
+}
+.timeline-date {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--neon-magenta);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.timeline-role {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  margin: 0.3rem 0;
+}
+.timeline-company {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+.timeline-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--border-glow);
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Projects */
+.projects-section { padding: 5rem 0; }
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glow);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+.project-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 30px rgba(0,240,255,0.1);
+  transform: translateY(-4px);
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+}
+.project-card .holo-shimmer {
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,240,255,0.05), transparent);
+  transition: left 0.6s;
+  pointer-events: none;
+}
+.project-card:hover .holo-shimmer { left: 100%; }
+.project-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.project-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  margin-bottom: 0.5rem;
+}
+.project-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.project-metrics {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.metric {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--neon-green);
+  padding: 0.15rem 0.5rem;
+  border: 1px solid rgba(57,255,20,0.3);
+}
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.project-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid rgba(255,0,255,0.3);
+  color: var(--neon-magenta);
+  text-transform: uppercase;
+}
+
+/* Skills */
+.skills-section { padding: 5rem 0; }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.skill-category {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glow);
+  padding: 1.5rem;
+}
+.skill-cat-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--neon-magenta);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255,0,255,0.2);
+}
+.skill-item {
+  margin-bottom: 0.75rem;
+}
+.skill-name {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+.skill-bar {
+  height: 4px;
+  background: rgba(0,240,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.skill-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+  box-shadow: 0 0 6px var(--neon-cyan);
+  transition: width 1s ease;
+}
+
+/* Achievements */
+.achievements-section { padding: 5rem 0; }
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.2rem;
+}
+.achievement-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glow);
+  padding: 1.2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: all 0.3s;
+}
+.achievement-card:hover {
+  border-color: var(--neon-yellow);
+  box-shadow: 0 0 15px rgba(255,255,0,0.1);
+}
+.achievement-icon { font-size: 1.8rem; flex-shrink: 0; }
+.achievement-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--neon-yellow);
+  margin-bottom: 0.25rem;
+}
+.achievement-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Contact */
+.contact-section { padding: 5rem 0 3rem; }
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+.contact-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glow);
+  padding: 1.2rem;
+  text-align: center;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: block;
+}
+.contact-card:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px rgba(0,240,255,0.15);
+  transform: translateY(-2px);
+}
+.contact-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.contact-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.contact-value {
+  font-size: 0.85rem;
+  color: var(--neon-cyan);
+  margin-top: 0.3rem;
+  word-break: break-all;
+}
+
+/* Chatbot */
+.chatbot-toggle {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  border: none;
+  cursor: none;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 0 20px rgba(0,240,255,0.4);
+  transition: transform 0.3s;
+}
+.chatbot-toggle:hover { transform: scale(1.1); }
+
+.chatbot-panel {
+  position: fixed;
+  bottom: 6rem; right: 2rem;
+  width: 360px;
+  max-height: 480px;
+  background: rgba(10,10,20,0.95);
+  border: 1px solid var(--border-glow);
+  border-radius: 12px;
+  z-index: 5000;
+  display: none;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+.chatbot-panel.open { display: flex; }
+.chatbot-header {
+  padding: 1rem;
+  background: rgba(0,240,255,0.05);
+  border-bottom: 1px solid var(--border-glow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.chatbot-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  color: var(--neon-cyan);
+  letter-spacing: 2px;
+}
+.chatbot-status {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--neon-green);
+}
+.chatbot-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 320px;
+}
+.chat-msg {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  max-width: 85%;
+}
+.chat-msg.bot {
+  background: rgba(0,240,255,0.08);
+  border: 1px solid rgba(0,240,255,0.15);
+  color: var(--text-primary);
+  align-self: flex-start;
+}
+.chat-msg.user {
+  background: rgba(255,0,255,0.1);
+  border: 1px solid rgba(255,0,255,0.2);
+  color: var(--text-primary);
+  align-self: flex-end;
+}
+.chatbot-input-area {
+  padding: 0.75rem;
+  border-top: 1px solid var(--border-glow);
+  display: flex;
+  gap: 0.5rem;
+}
+.chatbot-input {
+  flex: 1;
+  background: rgba(0,240,255,0.05);
+  border: 1px solid var(--border-glow);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  outline: none;
+}
+.chatbot-input:focus { border-color: var(--neon-cyan); }
+.chatbot-send {
+  background: var(--neon-cyan);
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  cursor: none;
+  color: var(--bg-dark);
+  font-weight: 700;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+}
+
+/* Footer */
+.cyber-footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border-glow);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Glitch animation */
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 95% 0); transform: translate(0); }
+  20% { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 2px); }
+  40% { clip-path: inset(60% 0 10% 0); transform: translate(3px, -2px); }
+  60% { clip-path: inset(40% 0 30% 0); transform: translate(-2px, 1px); }
+  80% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -1px); }
+}
+
+/* Scroll animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile hamburger */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: none;
+  padding: 0.5rem;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--neon-cyan);
+  margin: 5px 0;
+  transition: all 0.3s;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: rgba(10,10,15,0.95);
+    flex-direction: column;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-glow);
+  }
+  .nav-links.open { display: flex; }
+  .nav-hamburger { display: block; }
+  .hero-glitch { font-size: clamp(1.8rem, 5vw, 3rem); }
+  .hero-stats { gap: 1rem; }
+  .chatbot-panel { width: calc(100% - 2rem); right: 1rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+}
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body><!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div><!-- Particles -->
+  <canvas id="particles-canvas"></canvas><!-- Scanline -->
+  <div class="scanline-overlay"></div><!-- Navigation -->
+  <nav class="cyber-nav">
+   <div class="nav-logo" id="navLogo">
+    ADITI.SYS
+   </div><button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation"> <span></span><span></span><span></span> </button>
+   <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+   </ul>
+  </nav><!-- Hero -->
+  <section class="hero-section" id="hero">
+   <div class="section-container">
+    <div class="hero-content">
+     <div class="hero-subtitle">
+      SYSTEM.INIT &gt; LOADING_PROFILE...
+     </div>
+     <h1 class="hero-glitch" id="heroName"><span class="line1">I AM</span> <span class="line2">ADITI SAGESH</span></h1>
+     <div class="hero-subtitle">
+      &gt; <span class="typing-text" id="typingText"></span>
+     </div>
+     <div class="hero-stats">
+      <div class="stat-box">
+       <div class="stat-number">
+        4+
+       </div>
+       <div class="stat-label">
+        Projects
+       </div>
+      </div>
+      <div class="stat-box">
+       <div class="stat-number">
+        8.54
+       </div>
+       <div class="stat-label">
+        CGPA
+       </div>
+      </div>
+      <div class="stat-box">
+       <div class="stat-number">
+        0.99
+       </div>
+       <div class="stat-label">
+        Best R²
+       </div>
+      </div>
+      <div class="stat-box">
+       <div class="stat-number">
+        3
+       </div>
+       <div class="stat-label">
+        Internships
+       </div>
+      </div>
+     </div>
+     <div class="hero-cta"><a href="#projects" class="cyber-btn primary">EXPLORE PROJECTS</a> <a href="#contact" class="cyber-btn">CONTACT ME</a>
+     </div>
+    </div>
+   </div>
+  </section><!-- Terminal / About -->
+  <section class="terminal-section" id="about">
+   <div class="section-container">
+    <h2 class="section-title fade-in"><span class="accent">ABOUT</span> ME</h2>
+    <div class="terminal-window fade-in">
+     <div class="terminal-header">
+      <div class="terminal-dot red"></div>
+      <div class="terminal-dot yellow"></div>
+      <div class="terminal-dot green"></div><span class="terminal-title">profile.py — aditi@cyberdeck</span>
+     </div>
+     <div class="terminal-body">
+      <div>
+       <span class="comment"># --- profile.py ---</span>
+      </div><br>
+      <div>
+       <span class="keyword">class</span> <span class="variable">AditiSagesh</span>:
+      </div>
+      <div>
+       &nbsp;&nbsp;<span class="keyword">def</span> <span class="variable">__init__</span>(self):
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="variable">name</span> = <span class="string">"Aditi Sagesh"</span>
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="variable">education</span> = <span class="string">"B.E. CSE (AI &amp; ML)"</span>
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="variable">university</span> = <span class="string">"Sri Sairam Engineering College"</span>
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="variable">cgpa</span> = <span class="number">8.54</span>
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="variable">batch</span> = <span class="string">"2023–2027"</span>
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="variable">specialization</span> = <span class="string">"AI &amp; Machine Learning"</span>
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;self.<span class="variable">interests</span> = [
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Deep Learning"</span>,
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Agentic AI"</span>,
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Signal Processing"</span>,
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"Research"</span>
+      </div>
+      <div>
+       &nbsp;&nbsp;&nbsp;&nbsp;]
+      </div><br>
+      <div>
+       <span class="prompt">&gt;&gt;&gt;</span> profile = AditiSagesh()
+      </div>
+      <div>
+       <span class="prompt">&gt;&gt;&gt;</span> print(profile.<span class="variable">status</span>)
+      </div>
+      <div>
+       <span class="string">"Building intelligent systems that solve real-world problems."</span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Experience -->
+  <section class="experience-section" id="experience">
+   <div class="section-container">
+    <h2 class="section-title fade-in"><span class="accent">EXP</span>ERIENCE</h2>
+    <div class="timeline fade-in">
+     <div class="timeline-item">
+      <div class="timeline-date">
+       Jun 2025 — Jul 2025
+      </div>
+      <div class="timeline-role">
+       Research Intern
+      </div>
+      <div class="timeline-company">
+       CSIR-CEERI, Chennai
+      </div>
+      <div class="timeline-desc">
+       Developed AI pipelines for Terahertz and X-ray Non-Destructive Testing across 110+ timber samples. Built ensemble models (XGBoost, CatBoost, Random Forest) achieving R² up to 0.9997. Applied PCA, LDA, FFT, and STFT for advanced feature extraction.
+      </div>
+      <div class="timeline-tags"><span class="tag">XGBoost</span> <span class="tag">CatBoost</span> <span class="tag">PCA</span> <span class="tag">FFT/STFT</span> <span class="tag">NDT</span>
+      </div>
+     </div>
+     <div class="timeline-item">
+      <div class="timeline-date">
+       Aug 2025
+      </div>
+      <div class="timeline-role">
+       R&amp;D Intern
+      </div>
+      <div class="timeline-company">
+       Sri Sairam Techno Incubation Centre
+      </div>
+      <div class="timeline-desc">
+       Worked on Diabetic Retinopathy detection using deep learning on retinal fundus images. Developed and optimized classification models for early-stage disease identification.
+      </div>
+      <div class="timeline-tags"><span class="tag">Deep Learning</span> <span class="tag">Medical Imaging</span> <span class="tag">CNN</span>
+      </div>
+     </div>
+     <div class="timeline-item">
+      <div class="timeline-date">
+       Dec 2025 — Jan 2026
+      </div>
+      <div class="timeline-role">
+       AI for Sustainability Virtual Intern
+      </div>
+      <div class="timeline-company">
+       IBM SkillsBuild × 1M1B / AICTE
+      </div>
+      <div class="timeline-desc">
+       Explored Agentic AI and Retrieval-Augmented Generation (RAG) systems aligned with United Nations Sustainable Development Goals. Built solutions leveraging LLMs for sustainability impact.
+      </div>
+      <div class="timeline-tags"><span class="tag">Agentic AI</span> <span class="tag">RAG</span> <span class="tag">LLMs</span> <span class="tag">UN SDGs</span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Projects -->
+  <section class="projects-section" id="projects">
+   <div class="section-container">
+    <h2 class="section-title fade-in"><span class="accent">PRO</span>JECTS</h2>
+    <div class="projects-grid fade-in"><!-- FinLearn Tutor -->
+     <div class="project-card">
+      <div class="holo-shimmer"></div>
+      <div class="project-icon">
+       🤖
+      </div>
+      <div class="project-title">
+       FinLearn Tutor
+      </div>
+      <div class="project-desc">
+       Agentic AI financial education environment hosted on Hugging Face. Features OpenEnv framework, Pydantic validation, REST APIs (/reset, /step), and sub-second LLM inference for interactive tutoring.
+      </div>
+      <div class="project-metrics"><span class="metric">SUB-SECOND INFERENCE</span> <span class="metric">REST API</span>
+      </div>
+      <div class="project-tags"><span class="project-tag">Agentic AI</span> <span class="project-tag">Hugging Face</span> <span class="project-tag">Pydantic</span> <span class="project-tag">LLMs</span>
+      </div>
+     </div><!-- Auralytics -->
+     <div class="project-card">
+      <div class="holo-shimmer"></div>
+      <div class="project-icon">
+       🔊
+      </div>
+      <div class="project-title">
+       Auralytics
+      </div>
+      <div class="project-desc">
+       Deepfake audio detection system using CNN-LSTM architecture with MFCC feature extraction. Achieved 80%+ accuracy with 40% better detection rates and 60% faster processing than baselines.
+      </div>
+      <div class="project-metrics"><span class="metric">80%+ ACCURACY</span> <span class="metric">40% BETTER DETECTION</span> <span class="metric">60% FASTER</span>
+      </div>
+      <div class="project-tags"><span class="project-tag">CNN-LSTM</span> <span class="project-tag">MFCC</span> <span class="project-tag">Librosa</span> <span class="project-tag">Deep Learning</span>
+      </div>
+     </div><!-- CareerCraft -->
+     <div class="project-card">
+      <div class="holo-shimmer"></div>
+      <div class="project-icon">
+       💼
+      </div>
+      <div class="project-title">
+       CareerCraft
+      </div>
+      <div class="project-desc">
+       Full-stack career guidance platform with LLM-powered chatbot, ATS resume scoring, and gamified learning modules. Built with Node.js, MySQL, and JWT authentication.
+      </div>
+      <div class="project-metrics"><span class="metric">FULL-STACK</span> <span class="metric">ATS SCORING</span> <span class="metric">GAMIFICATION</span>
+      </div>
+      <div class="project-tags"><span class="project-tag">Node.js</span> <span class="project-tag">MySQL</span> <span class="project-tag">JWT</span> <span class="project-tag">LLM Chatbot</span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Skills -->
+  <section class="skills-section" id="skills">
+   <div class="section-container">
+    <h2 class="section-title fade-in"><span class="accent">SKI</span>LLS</h2>
+    <div class="skills-grid fade-in">
+     <div class="skill-category">
+      <div class="skill-cat-title">
+       Languages
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>Python</span><span>92%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:92%"></div>
+       </div>
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>SQL</span><span>80%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:80%"></div>
+       </div>
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>Java</span><span>70%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:70%"></div>
+       </div>
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>C</span><span>68%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:68%"></div>
+       </div>
+      </div>
+     </div>
+     <div class="skill-category">
+      <div class="skill-cat-title">
+       AI / ML
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>Scikit-learn</span><span>90%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:90%"></div>
+       </div>
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>XGBoost / CatBoost</span><span>88%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:88%"></div>
+       </div>
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>CNN-LSTM</span><span>82%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:82%"></div>
+       </div>
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>LLMs / RAG / Agentic AI</span><span>85%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:85%"></div>
+       </div>
+      </div>
+     </div>
+     <div class="skill-category">
+      <div class="skill-cat-title">
+       Backend &amp; Tools
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>Node.js / Express.js</span><span>78%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:78%"></div>
+       </div>
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>REST APIs / JWT</span><span>80%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:80%"></div>
+       </div>
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>Git / Hugging Face</span><span>85%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:85%"></div>
+       </div>
+      </div>
+      <div class="skill-item">
+       <div class="skill-name">
+        <span>Pydantic / Librosa</span><span>75%</span>
+       </div>
+       <div class="skill-bar">
+        <div class="skill-fill" style="width:75%"></div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Achievements -->
+  <section class="achievements-section" id="achievements">
+   <div class="section-container">
+    <h2 class="section-title fade-in"><span class="accent">ACHIEV</span>EMENTS</h2>
+    <div class="achievements-grid fade-in">
+     <div class="achievement-card">
+      <div class="achievement-icon">
+       📄
+      </div>
+      <div>
+       <div class="achievement-title">
+        IEEE Research Paper
+       </div>
+       <div class="achievement-desc">
+        Published paper on THz Timber Density Prediction using stacked ensemble regression — R² of 0.99
+       </div>
+      </div>
+     </div>
+     <div class="achievement-card">
+      <div class="achievement-icon">
+       💡
+      </div>
+      <div>
+       <div class="achievement-title">
+        Patent Filed
+       </div>
+       <div class="achievement-desc">
+        AI-powered CO₂ capture system — patent for innovative carbon capture technology
+       </div>
+      </div>
+     </div>
+     <div class="achievement-card">
+      <div class="achievement-icon">
+       🎓
+      </div>
+      <div>
+       <div class="achievement-title">
+        NPTEL Certifications
+       </div>
+       <div class="achievement-desc">
+        Machine Learning (IIT Kharagpur) &amp; Advanced Architecture — national-level certifications
+       </div>
+      </div>
+     </div>
+     <div class="achievement-card">
+      <div class="achievement-icon">
+       📚
+      </div>
+      <div>
+       <div class="achievement-title">
+        Coursera Certifications
+       </div>
+       <div class="achievement-desc">
+        Deep Learning (Yonsei University) &amp; Investment Risk Management — specialized credentials
+       </div>
+      </div>
+     </div>
+     <div class="achievement-card">
+      <div class="achievement-icon">
+       🌐
+      </div>
+      <div>
+       <div class="achievement-title">
+        Cisco Certification
+       </div>
+       <div class="achievement-desc">
+        Data Science — industry-recognized certification from Cisco Networking Academy
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Contact -->
+  <section class="contact-section" id="contact">
+   <div class="section-container">
+    <h2 class="section-title fade-in"><span class="accent">CON</span>TACT</h2>
+    <div class="contact-grid fade-in">
+     <div class="contact-card" onclick="window.open('mailto:aditisagesh1703@gmail.com', '_blank');" style="cursor: pointer;">
+      <div class="contact-icon">
+       📧
+      </div>
+      <div class="contact-label">
+       Email
+      </div>
+      <div class="contact-value">
+       aditisagesh1703@gmail.com
+      </div>
+     </div>
+     <div class="contact-card" onclick="window.open('tel:+919345903070');" style="cursor: pointer;">
+      <div class="contact-icon">
+       📱
+      </div>
+      <div class="contact-label">
+       Phone
+      </div>
+      <div class="contact-value">
+       +91-9345903070
+      </div>
+     </div>
+     <div class="contact-card" onclick="window.open('https://github.com/aditisagesh-svg', '_blank');" style="cursor: pointer;">
+      <div class="contact-icon">
+       💻
+      </div>
+      <div class="contact-label">
+       GitHub
+      </div>
+      <div class="contact-value">
+       aditisagesh-svg
+      </div>
+     </div><a href="https://www.linkedin.com/in/aditi-sagesh-1a9ab127a" target="_blank" rel="noopener noreferrer" class="contact-card" style="text-decoration: none;">
+      <div class="contact-icon">
+       🔗
+      </div>
+      <div class="contact-label">
+       LinkedIn
+      </div>
+      <div class="contact-value">
+       aditi-sagesh
+      </div></a>
+    </div>
+   </div>
+  </section><!-- Footer -->
+  <footer class="cyber-footer">
+   <p>&lt;/&gt; DESIGNED &amp; BUILT BY <span style="color:var(--neon-cyan);">ADITI SAGESH</span> | 2025</p>
+  </footer><!-- Chatbot --> <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open AURA AI chat">🤖</button>
+  <div class="chatbot-panel" id="chatbotPanel">
+   <div class="chatbot-header">
+    <div>
+     <div class="chatbot-title">
+      AURA AI
+     </div>
+     <div class="chatbot-status">
+      ● ONLINE
+     </div>
+    </div><button style="background:none;border:none;color:var(--text-secondary);cursor:none;font-size:1.2rem;" id="chatbotClose">✕</button>
+   </div>
+   <div class="chatbot-messages" id="chatMessages">
+    <div class="chat-msg bot">
+     Hey! I'm AURA — Aditi's AI assistant. Ask me about her projects, skills, experience, or anything else! ⚡
+    </div>
+   </div>
+   <div class="chatbot-input-area"><input type="text" class="chatbot-input" id="chatInput" placeholder="Ask about Aditi..." autocomplete="off"> <button class="chatbot-send" id="chatSend">SEND</button>
+   </div>
+  </div>
+  <script>
+// ========== Element SDK Init ==========
+const defaultConfig = {
+  hero_name: 'ADITI SAGESH',
+  hero_tagline: 'Building intelligent systems that solve real-world problems.',
+  background_color: '#0a0a0f',
+  surface_color: '#0d0d1a',
+  text_color: '#e0e0ff',
+  accent_color: '#00f0ff',
+  accent2_color: '#ff00ff',
+  font_family: 'Rajdhani',
+  font_size: 16
+};
+
+function applyConfig(config) {
+  const name = config.hero_name || defaultConfig.hero_name;
+  const el = document.querySelector('.hero-glitch .line2');
+  if (el) el.textContent = name;
+
+  const root = document.documentElement.style;
+  root.setProperty('--bg-dark', config.background_color || defaultConfig.background_color);
+  root.setProperty('--bg-card', config.surface_color || defaultConfig.surface_color);
+  root.setProperty('--text-primary', config.text_color || defaultConfig.text_color);
+  root.setProperty('--neon-cyan', config.accent_color || defaultConfig.accent_color);
+  root.setProperty('--neon-magenta', config.accent2_color || defaultConfig.accent2_color);
+
+  const font = config.font_family || defaultConfig.font_family;
+  document.body.style.fontFamily = `${font}, Rajdhani, sans-serif`;
+
+  const baseSize = config.font_size || defaultConfig.font_size;
+  document.body.style.fontSize = `${baseSize}px`;
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => applyConfig(config),
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.accent_color || defaultConfig.accent_color, set: (v) => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
+        { get: () => config.accent2_color || defaultConfig.accent2_color, set: (v) => { config.accent2_color = v; window.elementSdk.setConfig({ accent2_color: v }); } }
+      ],
+      borderables: [],
+      fontEditable: {
+        get: () => config.font_family || defaultConfig.font_family,
+        set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+      },
+      fontSizeable: {
+        get: () => config.font_size || defaultConfig.font_size,
+        set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+      }
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['hero_name', config.hero_name || defaultConfig.hero_name],
+      ['hero_tagline', config.hero_tagline || defaultConfig.hero_tagline]
+    ])
+  });
+}
+
+// ========== Custom Cursor ==========
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX - 4 + 'px';
+  dot.style.top = mouseY - 4 + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.15;
+  ringY += (mouseY - ringY) * 0.15;
+  ring.style.left = ringX - 18 + 'px';
+  ring.style.top = ringY - 18 + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// ========== Particles ==========
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+for (let i = 0; i < 60; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.5,
+    vy: (Math.random() - 0.5) * 0.5,
+    size: Math.random() * 2 + 0.5,
+    alpha: Math.random() * 0.5 + 0.1
+  });
+}
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = canvas.width;
+    if (p.x > canvas.width) p.x = 0;
+    if (p.y < 0) p.y = canvas.height;
+    if (p.y > canvas.height) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0, 240, 255, ${p.alpha})`;
+    ctx.fill();
+  });
+
+  // Draw connections
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0, 240, 255, ${0.08 * (1 - dist / 120)})`;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+// ========== Typing Animation ==========
+const roles = ['AI/ML Engineer', 'Backend Developer', 'Research Intern', 'Deep Learning Enthusiast'];
+let roleIdx = 0, charIdx = 0, deleting = false;
+const typingEl = document.getElementById('typingText');
+
+function typeRole() {
+  const current = roles[roleIdx];
+  if (!deleting) {
+    typingEl.textContent = current.substring(0, charIdx + 1);
+    charIdx++;
+    if (charIdx === current.length) {
+      setTimeout(() => { deleting = true; typeRole(); }, 1800);
+      return;
+    }
+    setTimeout(typeRole, 80);
+  } else {
+    typingEl.textContent = current.substring(0, charIdx - 1);
+    charIdx--;
+    if (charIdx === 0) {
+      deleting = false;
+      roleIdx = (roleIdx + 1) % roles.length;
+      setTimeout(typeRole, 400);
+      return;
+    }
+    setTimeout(typeRole, 40);
+  }
+}
+typeRole();
+
+// ========== Scroll Reveal ==========
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ========== Hamburger ==========
+document.getElementById('navHamburger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// ========== Smooth Scroll ==========
+document.querySelectorAll('.nav-links a, .cyber-btn[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ========== Chatbot ==========
+const chatbotToggle = document.getElementById('chatbotToggle');
+const chatbotPanel = document.getElementById('chatbotPanel');
+const chatbotClose = document.getElementById('chatbotClose');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+const chatMessages = document.getElementById('chatMessages');
+
+chatbotToggle.addEventListener('click', () => chatbotPanel.classList.toggle('open'));
+chatbotClose.addEventListener('click', () => chatbotPanel.classList.remove('open'));
+
+function addMsg(text, type) {
+  const div = document.createElement('div');
+  div.className = `chat-msg ${type}`;
+  div.textContent = text;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+const responses = {
+  projects: "Aditi has built 4 notable projects:\n🤖 FinLearn Tutor — Agentic AI financial env on Hugging Face with sub-second LLM inference\n🔊 Auralytics — Deepfake audio detection (CNN-LSTM, 80%+ accuracy, 60% faster)\n💼 CareerCraft — Full-stack career platform with LLM chatbot & ATS scoring\n📡 THz Timber Density Prediction — IEEE published, R² of 0.99",
+  skills: "Her core skills include: Python, SQL, Java, C | Scikit-learn, XGBoost, CNN-LSTM, LLMs, RAG, Agentic AI | Node.js, Express.js, REST APIs, JWT | Git, Pydantic, Hugging Face, Librosa",
+  experience: "Aditi has 3 internships:\n1️⃣ Research Intern at CSIR-CEERI — AI pipelines for THz/X-ray NDT, R² up to 0.9997\n2️⃣ R&D Intern at Sairam Techno Incubation — Diabetic Retinopathy detection with deep learning\n3️⃣ AI for Sustainability Virtual Intern (IBM SkillsBuild × AICTE) — Agentic AI + RAG",
+  education: "She's pursuing B.E. in CSE (AI & ML) at Sri Sairam Engineering College with a CGPA of 8.54 (2023–2027).",
+  achievements: "📄 IEEE Research Paper (THz timber prediction, R² 0.99)\n💡 Patent filed for AI-powered CO₂ capture system\n🎓 NPTEL: ML (IIT KGP) & Advanced Architecture\n📚 Coursera: Deep Learning (Yonsei) & Investment Risk Mgmt\n🌐 Cisco: Data Science certification",
+  contact: "📧 aditisagesh1703@gmail.com\n📱 +91-9345903070\n💻 github.com/aditisagesh-svg\n🔗 linkedin.com/in/aditi-sagesh-1a9ab127a"
+};
+
+function getResponse(msg) {
+  const m = msg.toLowerCase();
+  if (m.includes('project') || m.includes('finlearn') || m.includes('auralytics') || m.includes('careercraft') || m.includes('thz')) return responses.projects;
+  if (m.includes('skill') || m.includes('tech') || m.includes('python') || m.includes('stack')) return responses.skills;
+  if (m.includes('experience') || m.includes('intern') || m.includes('work') || m.includes('csir') || m.includes('ibm')) return responses.experience;
+  if (m.includes('education') || m.includes('college') || m.includes('cgpa') || m.includes('degree') || m.includes('study')) return responses.education;
+  if (m.includes('achievement') || m.includes('cert') || m.includes('patent') || m.includes('paper') || m.includes('ieee') || m.includes('award')) return responses.achievements;
+  if (m.includes('contact') || m.includes('email') || m.includes('phone') || m.includes('reach') || m.includes('linkedin') || m.includes('github')) return responses.contact;
+  if (m.includes('hello') || m.includes('hi') || m.includes('hey')) return "Hey there! 👋 I'm AURA, Aditi's AI assistant. Ask me about her projects, skills, experience, achievements, or education!";
+  if (m.includes('who') && m.includes('aditi')) return "Aditi Sagesh is an AI/ML enthusiast pursuing B.E. CSE (AI & ML) at Sri Sairam Engineering College. She's passionate about deep learning, agentic AI, and signal processing — with research published in IEEE!";
+  return "I can tell you about Aditi's projects, skills, experience, education, achievements, or contact info. What would you like to know? 🚀";
+}
+
+function handleSend() {
+  const msg = chatInput.value.trim();
+  if (!msg) return;
+  addMsg(msg, 'user');
+  chatInput.value = '';
+  setTimeout(() => addMsg(getResponse(msg), 'bot'), 500);
+}
+
+chatSend.addEventListener('click', handleSend);
+chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9edc5a6b96e8384f',t:'MTc3NjQzODU5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
